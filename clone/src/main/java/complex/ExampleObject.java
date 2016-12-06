@@ -1,35 +1,41 @@
 package complex;
 
-import primitives.ObjectHoldingPrimitives;
+import java.io.Serializable;
 
-/**
- * Object holding other objects inside.
- * 
- * @author straeger
- *
- */
-public class ObjectHoldingOtherObject {
+public class ExampleObject implements Cloneable, Serializable {
 
-	private String name;
-	private ObjectHoldingPrimitives otherObject;
+	private int number;
+
+	private ExampleObject2 otherObject;
 
 	// Default Constructor
-	public ObjectHoldingOtherObject() {
-		this.name = "defaultName";
-		this.otherObject = new ObjectHoldingPrimitives();
+	public ExampleObject() {
+		this.setNumber(1);
+		this.setOtherObject(new ExampleObject2());
 	}
 
-	// Copy constructor
-	public ObjectHoldingOtherObject(final ObjectHoldingOtherObject otherObjectOfSameType) {
-		this.name = otherObjectOfSameType.name;
-		this.otherObject = otherObjectOfSameType.otherObject;
+	public int getNumber() {
+		return number;
 	}
 
-	// Parameter Constructor
-	public ObjectHoldingOtherObject(final String name, final ObjectHoldingPrimitives otherObject) {
-		this.name = name;
-		// NOTE: Only the reference is aligned to this.otherObject
+	public ExampleObject2 getOtherObject() {
+		return otherObject;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public void setOtherObject(ExampleObject2 otherObject) {
 		this.otherObject = otherObject;
+	}
+
+	@Override
+	public String toString() {
+		return "ExampleObject [" //
+				+ "\nnumber=" + number + ", " //
+				+ "\notherObject=" + otherObject + //
+				"]"; //
 	}
 
 }
