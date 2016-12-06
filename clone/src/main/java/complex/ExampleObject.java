@@ -11,7 +11,7 @@ public class ExampleObject implements Cloneable, Serializable {
 	// Default Constructor
 	public ExampleObject() {
 		this.setNumber(1);
-		this.setOtherObject(new ExampleObject2());
+		this.setExampleObject2(new ExampleObject2());
 	}
 
 	public int getNumber() {
@@ -26,7 +26,7 @@ public class ExampleObject implements Cloneable, Serializable {
 		this.number = number;
 	}
 
-	public void setOtherObject(ExampleObject2 otherObject) {
+	public void setExampleObject2(ExampleObject2 otherObject) {
 		this.otherObject = otherObject;
 	}
 
