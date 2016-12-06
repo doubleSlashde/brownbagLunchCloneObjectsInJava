@@ -8,7 +8,27 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
+/**
+ * Class holding different methods for cloning objects.
+ * 
+ * @author straeger
+ *
+ */
 public class CloneUtils {
+
+	private static <T> T copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
+			throws IllegalAccessException {
+		// List<Field> fields = new ArrayList<>();
+		Field[] declaredFields = clazz.getDeclaredFields();
+		// for (Field field : declaredFields) {
+		// fields.add(field);
+		// }
+		for (Field field : declaredFields) {
+			field.setAccessible(true);
+			field.set(newEntity, field.get(entity));
+		}
+		return newEntity;
+	}
 
 	public static <T> T copyWithReflection(T entity) throws IllegalAccessException, InstantiationException {
 		Class<?> clazz = entity.getClass();
@@ -19,19 +39,6 @@ public class CloneUtils {
 			clazz = clazz.getSuperclass();
 		}
 
-		return newEntity;
-	}
-
-	private static <T> T copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz) throws IllegalAccessException {
-		// List<Field> fields = new ArrayList<>();
-		Field[] declaredFields = clazz.getDeclaredFields();
-		// for (Field field : declaredFields) {
-		// fields.add(field);
-		// }
-		for (Field field : declaredFields) {
-			field.setAccessible(true);
-			field.set(newEntity, field.get(entity));
-		}
 		return newEntity;
 	}
 

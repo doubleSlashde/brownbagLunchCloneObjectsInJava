@@ -1,6 +1,7 @@
 package stopWatchTest;
 
 import org.apache.commons.lang.time.StopWatch;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -79,6 +80,12 @@ public class CloneWithStopWatchTest {
 		stopWatch.stop();
 		reflectionTime = stopWatch.toString();
 		stopWatch.reset();
+
+		// Check test result
+		int i = 0;
+		for (ExampleObject exampleObject : clonedArray) {
+			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
+		}
 		System.out.println("=========================================");
 		System.out.println("Time for copying " + ARRAY_LEN + " exampleObjects with Reflection: " + reflectionTime);
 		System.out.println("=========================================");
@@ -105,6 +112,12 @@ public class CloneWithStopWatchTest {
 		stopWatch.stop();
 		serializationTime = stopWatch.toString();
 		stopWatch.reset();
+
+		// Check test result
+		int i = 0;
+		for (ExampleObject exampleObject : clonedArray) {
+			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
+		}
 		System.out.println("=========================================");
 		System.out
 				.println("Time for copying " + ARRAY_LEN + " exampleObjects with Serialization: " + serializationTime);
