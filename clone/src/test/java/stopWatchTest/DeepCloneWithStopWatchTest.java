@@ -63,6 +63,7 @@ public class DeepCloneWithStopWatchTest {
 
 	}
 
+	// TODO: Check why the condition after changing one object does not met.
 	@Test
 	public void test_Reflection() throws Exception {
 
@@ -89,8 +90,23 @@ public class DeepCloneWithStopWatchTest {
 		// Check test result
 		int i = 0;
 		for (Car exampleObject : clonedArray) {
-			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
+			Assert.assertEquals("Not the expected Car", exampleObjectArray[i++], exampleObject);
 		}
+
+		// Check precondition
+		Assert.assertEquals("Precondition not met.", exampleObjectArray[0].getEngine().getSerialNumber(),
+				clonedArray[0].getEngine().getSerialNumber());
+
+		// Change 1 Object from original
+		Engine engineToChange = exampleObjectArray[0].getEngine();
+		int newNumberForObject = (int) (Math.random() * 100);
+		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
+		engineToChange.setSerialNumber(newNumberForObject);
+		exampleObjectArray[0].setEngine(engineToChange);
+
+		// Check if the changed Object is not in the clonedArray
+		Assert.assertNotEquals("SerialNumber of Engine not change.",
+				exampleObjectArray[0].getEngine().getSerialNumber(), clonedArray[0].getEngine().getSerialNumber());
 		System.out.println("=========================================");
 		System.out.println(
 				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Reflection: " + reflectionTime);
@@ -124,7 +140,7 @@ public class DeepCloneWithStopWatchTest {
 		// Check test result
 		int i = 0;
 		for (Car exampleObject : clonedArray) {
-			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
+			Assert.assertEquals("Not the expected Car", exampleObjectArray[i++], exampleObject);
 		}
 
 		// Check precondition
