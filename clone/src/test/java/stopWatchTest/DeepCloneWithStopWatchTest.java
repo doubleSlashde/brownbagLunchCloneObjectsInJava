@@ -8,7 +8,7 @@ import org.junit.Test;
 import cloneExample.CloneUtils;
 import complex.ExampleObject;
 import complex.ExampleObject2;
-import complex.ExampleObject3;
+import primitives.ExampleObject3;
 
 public class DeepCloneWithStopWatchTest {
 
@@ -58,11 +58,6 @@ public class DeepCloneWithStopWatchTest {
 	@Before
 	public void initTimer() {
 		stopWatch = new StopWatch();
-	}
-
-	@Test
-	public void test_Cloneable() throws Exception {
-
 	}
 
 	@Test

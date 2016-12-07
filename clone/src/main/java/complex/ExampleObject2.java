@@ -2,6 +2,8 @@ package complex;
 
 import java.io.Serializable;
 
+import primitives.ExampleObject3;
+
 /**
  * Object holding only primitive types.
  * 
