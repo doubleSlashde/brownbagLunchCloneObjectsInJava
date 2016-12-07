@@ -73,7 +73,8 @@ public class DeepCloneWithStopWatchTest {
 		System.out.println("Starting test with Reflection");
 		System.out.println("=========================================");
 		initializeExampleObjectArray(exampleObjectArray);
-		// Clone-call: Start Stopwatch
+
+		// Starting cloning -> Start StopWatch
 		stopWatch.start();
 		int j = 0;
 		for (Car exampleObject : exampleObjectArray) {
@@ -126,16 +127,20 @@ public class DeepCloneWithStopWatchTest {
 			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
 		}
 
+		// Check precondition
+		Assert.assertEquals("Precondition not met.", exampleObjectArray[0].getEngine().getSerialNumber(),
+				clonedArray[0].getEngine().getSerialNumber());
+
 		// Change 1 Object from original
-		Engine objectToChange = exampleObjectArray[0].getEngine();
+		Engine engineToChange = exampleObjectArray[0].getEngine();
 		int newNumberForObject = (int) (Math.random() * 100);
-		Assert.assertNotEquals("Number not changed.", objectToChange.getSerialNumber(), newNumberForObject);
-		objectToChange.setSerialNumber(newNumberForObject);
-		exampleObjectArray[0].setEngine(objectToChange);
+		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
+		engineToChange.setSerialNumber(newNumberForObject);
+		exampleObjectArray[0].setEngine(engineToChange);
 
 		// Check if the changed Object is not in the clonedArray
-		Assert.assertNotEquals(exampleObjectArray[0].getEngine().getSerialNumber(),
-				clonedArray[0].getEngine().getSerialNumber());
+		Assert.assertNotEquals("SerialNumber of Engine not change.",
+				exampleObjectArray[0].getEngine().getSerialNumber(), clonedArray[0].getEngine().getSerialNumber());
 
 		System.out.println("=========================================");
 		System.out.println(
