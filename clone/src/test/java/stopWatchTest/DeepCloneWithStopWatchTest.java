@@ -107,14 +107,15 @@ public class DeepCloneWithStopWatchTest {
 		System.out.println("Starting test with Serialization");
 		System.out.println("=========================================");
 		initializeExampleObjectArray(exampleObjectArray);
-		// Clone-call: Start Stopwatch
+
+		// Starting cloning -> Start StopWatch
 		stopWatch.start();
 		int j = 0;
 		for (ExampleObject exampleObject : exampleObjectArray) {
 			clonedArray[j++] = CloneUtils.copyWithSerialization(exampleObject);
 		}
 
-		// End of clone
+		// End of clone -> Stop StopWatch and reset it
 		stopWatch.stop();
 		serializationTime = stopWatch.toString();
 		stopWatch.reset();
@@ -132,6 +133,7 @@ public class DeepCloneWithStopWatchTest {
 		objectToChange.setNumber(newNumberForObject);
 		exampleObjectArray[0].setExampleObject2(objectToChange);
 
+		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals(exampleObjectArray[0].getOtherObject().getNumber(),
 				clonedArray[0].getOtherObject().getNumber());
 
