@@ -2,6 +2,12 @@ package primitives;
 
 import java.io.Serializable;
 
+/**
+ * Object holding only one primitive type.
+ * 
+ * @author straeger
+ *
+ */
 public class ExampleObject3 implements Serializable, Cloneable {
 
 	private int number;

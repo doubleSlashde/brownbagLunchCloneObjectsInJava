@@ -15,12 +15,10 @@ public class DeepCloneWithStopWatchTest {
 	/**
 	 * Length of the testArray. Number of elements to be cloned
 	 */
-	private static final int ARRAY_LEN = 10000;
-	private ExampleObject[] exampleObjectArray = new ExampleObject[ARRAY_LEN];
+	private static final int TESTELEMENT_AMOUNT = 10000;
+	private ExampleObject[] exampleObjectArray = new ExampleObject[TESTELEMENT_AMOUNT];
 
 	private StopWatch stopWatch;
-	private String serializationTime;
-	private String reflectionTime;
 
 	/**
 	 * Initializes the given array with random ExampleObjects.
@@ -64,7 +62,8 @@ public class DeepCloneWithStopWatchTest {
 	public void test_Reflection() throws Exception {
 
 		// Setup: Create 1000 objects
-		ExampleObject[] clonedArray = new ExampleObject[ARRAY_LEN];
+		ExampleObject[] clonedArray = new ExampleObject[TESTELEMENT_AMOUNT];
+		String reflectionTime;
 		System.out.println("=========================================");
 		System.out.println("Starting test with Reflection");
 		System.out.println("=========================================");
@@ -87,7 +86,8 @@ public class DeepCloneWithStopWatchTest {
 			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
 		}
 		System.out.println("=========================================");
-		System.out.println("Time for copying " + ARRAY_LEN + " exampleObjects with Reflection: " + reflectionTime);
+		System.out.println(
+				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Reflection: " + reflectionTime);
 		System.out.println("=========================================");
 		exampleObjectArray = null;
 	}
@@ -95,8 +95,9 @@ public class DeepCloneWithStopWatchTest {
 	@Test
 	public void test_Serialization() throws Exception {
 
-		// Setup: Create 1000 objects
-		ExampleObject[] clonedArray = new ExampleObject[ARRAY_LEN];
+		// Setup
+		ExampleObject[] clonedArray = new ExampleObject[TESTELEMENT_AMOUNT];
+		String serializationTime;
 		System.out.println("=========================================");
 		System.out.println("Starting test with Serialization");
 		System.out.println("=========================================");
@@ -119,8 +120,8 @@ public class DeepCloneWithStopWatchTest {
 			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
 		}
 		System.out.println("=========================================");
-		System.out
-				.println("Time for copying " + ARRAY_LEN + " exampleObjects with Serialization: " + serializationTime);
+		System.out.println(
+				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Serialization: " + serializationTime);
 		System.out.println("=========================================");
 	}
 
