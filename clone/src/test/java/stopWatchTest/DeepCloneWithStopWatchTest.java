@@ -3,6 +3,7 @@ package stopWatchTest;
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import cloneExample.CloneUtils;
@@ -16,18 +17,25 @@ public class DeepCloneWithStopWatchTest {
 	 * Length of the testArray. Number of elements to be cloned
 	 */
 	private static final int TESTELEMENT_AMOUNT = 10000;
-	private Car[] exampleObjectArray = new Car[TESTELEMENT_AMOUNT];
 
+	/**
+	 * The Array holding the cars for the test.
+	 */
+	private Car[] testCarArray = new Car[TESTELEMENT_AMOUNT];
+
+	/**
+	 * The StopWatch
+	 */
 	private StopWatch stopWatch;
 
 	/**
 	 * Initializes the given array with random ExampleObjects.
 	 * 
-	 * @param objectArray
+	 * @param carArray
 	 *            the objectArray
 	 */
-	private void initializeExampleObjectArray(final Car[] objectArray) {
-		for (int i = 0; i < objectArray.length; i++) {
+	private void initializeExampleObjectArray(final Car[] carArray) {
+		for (int i = 0; i < carArray.length; i++) {
 			int pseudoRandomNumber = (int) (Math.random() * 100);
 			System.out.println("Created pseudo random number: " + pseudoRandomNumber);
 
@@ -49,7 +57,7 @@ public class DeepCloneWithStopWatchTest {
 			// Set exampleObject2 into exampleObject
 			car.setEngine(engine);
 			System.out.println("Created element nr. " + (i + 1) + "\n" + car);
-			objectArray[i] = car;
+			carArray[i] = car;
 		}
 	}
 
@@ -58,28 +66,36 @@ public class DeepCloneWithStopWatchTest {
 		stopWatch = new StopWatch();
 	}
 
+	@Ignore("Not fully implemented yet. Needs to be written.")
 	@Test
 	public void test_CopyConstructor() {
 
 	}
 
+	/**
+	 * Test for Copy with Reflection. Creates a deep Copy of an array of cars
+	 * and make some checks.
+	 * 
+	 * @throws Exception
+	 *             the Exception
+	 */
 	// TODO: Check why the condition after changing one object does not met.
 	@Test
 	public void test_Reflection() throws Exception {
 
 		// Setup: Create 1000 objects
-		Car[] clonedArray = new Car[TESTELEMENT_AMOUNT];
+		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
 		String reflectionTime;
 		System.out.println("=========================================");
 		System.out.println("Starting test with Reflection");
 		System.out.println("=========================================");
-		initializeExampleObjectArray(exampleObjectArray);
+		initializeExampleObjectArray(testCarArray);
 
 		// Starting cloning -> Start StopWatch
 		stopWatch.start();
 		int j = 0;
-		for (Car exampleObject : exampleObjectArray) {
-			clonedArray[j++] = CloneUtils.copyWithReflection(exampleObject);
+		for (Car car : testCarArray) {
+			clonedCarArray[j++] = CloneUtils.copyWithReflection(car);
 		}
 
 		// End of clone
@@ -89,47 +105,54 @@ public class DeepCloneWithStopWatchTest {
 
 		// Check test result
 		int i = 0;
-		for (Car exampleObject : clonedArray) {
-			Assert.assertEquals("Not the expected Car", exampleObjectArray[i++], exampleObject);
+		for (Car exampleObject : clonedCarArray) {
+			Assert.assertEquals("Not the expected Car", testCarArray[i++], exampleObject);
 		}
 
 		// Check precondition
-		Assert.assertEquals("Precondition not met.", exampleObjectArray[0].getEngine().getSerialNumber(),
-				clonedArray[0].getEngine().getSerialNumber());
+		Assert.assertEquals("Precondition not met.", testCarArray[0].getEngine().getSerialNumber(),
+				clonedCarArray[0].getEngine().getSerialNumber());
 
 		// Change 1 Object from original
-		Engine engineToChange = exampleObjectArray[0].getEngine();
+		Engine engineToChange = testCarArray[0].getEngine();
 		int newNumberForObject = (int) (Math.random() * 100);
 		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
 		engineToChange.setSerialNumber(newNumberForObject);
-		exampleObjectArray[0].setEngine(engineToChange);
+		testCarArray[0].setEngine(engineToChange);
 
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.",
-				exampleObjectArray[0].getEngine().getSerialNumber(), clonedArray[0].getEngine().getSerialNumber());
+				testCarArray[0].getEngine().getSerialNumber(), clonedCarArray[0].getEngine().getSerialNumber());
 		System.out.println("=========================================");
 		System.out.println(
 				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Reflection: " + reflectionTime);
 		System.out.println("=========================================");
-		exampleObjectArray = null;
+		testCarArray = null;
 	}
 
+	/**
+	 * Test for Copy with Serialization. Creates a deep copy of an array of cars
+	 * and make some checks.
+	 * 
+	 * @throws Exception
+	 *             the Exception
+	 */
 	@Test
 	public void test_Serialization() throws Exception {
 
 		// Setup
-		Car[] clonedArray = new Car[TESTELEMENT_AMOUNT];
+		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
 		String serializationTime;
 		System.out.println("=========================================");
 		System.out.println("Starting test with Serialization");
 		System.out.println("=========================================");
-		initializeExampleObjectArray(exampleObjectArray);
+		initializeExampleObjectArray(testCarArray);
 
 		// Starting cloning -> Start StopWatch
 		stopWatch.start();
 		int j = 0;
-		for (Car exampleObject : exampleObjectArray) {
-			clonedArray[j++] = CloneUtils.copyWithSerialization(exampleObject);
+		for (Car exampleObject : testCarArray) {
+			clonedCarArray[j++] = CloneUtils.copyWithSerialization(exampleObject);
 		}
 
 		// End of clone -> Stop StopWatch and reset it
@@ -139,24 +162,24 @@ public class DeepCloneWithStopWatchTest {
 
 		// Check test result
 		int i = 0;
-		for (Car exampleObject : clonedArray) {
-			Assert.assertEquals("Not the expected Car", exampleObjectArray[i++], exampleObject);
+		for (Car car : clonedCarArray) {
+			Assert.assertEquals("Not the expected Car", testCarArray[i++], car);
 		}
 
 		// Check precondition
-		Assert.assertEquals("Precondition not met.", exampleObjectArray[0].getEngine().getSerialNumber(),
-				clonedArray[0].getEngine().getSerialNumber());
+		Assert.assertEquals("Precondition not met.", testCarArray[0].getEngine().getSerialNumber(),
+				clonedCarArray[0].getEngine().getSerialNumber());
 
 		// Change 1 Object from original
-		Engine engineToChange = exampleObjectArray[0].getEngine();
+		Engine engineToChange = testCarArray[0].getEngine();
 		int newNumberForObject = (int) (Math.random() * 100);
 		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
 		engineToChange.setSerialNumber(newNumberForObject);
-		exampleObjectArray[0].setEngine(engineToChange);
+		testCarArray[0].setEngine(engineToChange);
 
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.",
-				exampleObjectArray[0].getEngine().getSerialNumber(), clonedArray[0].getEngine().getSerialNumber());
+				testCarArray[0].getEngine().getSerialNumber(), clonedCarArray[0].getEngine().getSerialNumber());
 
 		System.out.println("=========================================");
 		System.out.println(
