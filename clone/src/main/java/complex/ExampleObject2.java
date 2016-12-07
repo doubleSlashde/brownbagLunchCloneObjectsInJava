@@ -15,7 +15,6 @@ public class ExampleObject2 implements Serializable {
 
 	// Default constructor
 	public ExampleObject2() {
-		this.number = 1;
 	}
 
 	// Copy constructor

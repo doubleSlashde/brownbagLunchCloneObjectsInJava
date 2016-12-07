@@ -10,8 +10,6 @@ public class ExampleObject implements Cloneable, Serializable {
 
 	// Default Constructor
 	public ExampleObject() {
-		this.setNumber(1);
-		this.setExampleObject2(new ExampleObject2());
 	}
 
 	@Override

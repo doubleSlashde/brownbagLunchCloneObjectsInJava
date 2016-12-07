@@ -10,7 +10,7 @@ import complex.ExampleObject;
 import complex.ExampleObject2;
 import complex.ExampleObject3;
 
-public class CloneWithStopWatchTest {
+public class DeepCloneWithStopWatchTest {
 
 	/**
 	 * Length of the testArray. Number of elements to be cloned
@@ -58,6 +58,11 @@ public class CloneWithStopWatchTest {
 	@Before
 	public void initTimer() {
 		stopWatch = new StopWatch();
+	}
+
+	@Test
+	public void test_Cloneable() throws Exception {
+
 	}
 
 	@Test

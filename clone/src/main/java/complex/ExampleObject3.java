@@ -8,7 +8,6 @@ public class ExampleObject3 implements Serializable {
 
 	// Default constructor
 	public ExampleObject3() {
-		this.number = 1;
 	}
 
 	// Copy constructor
