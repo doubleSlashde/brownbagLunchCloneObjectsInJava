@@ -59,6 +59,11 @@ public class DeepCloneWithStopWatchTest {
 	}
 
 	@Test
+	public void test_CopyConstructor() {
+
+	}
+
+	@Test
 	public void test_Reflection() throws Exception {
 
 		// Setup: Create 1000 objects
@@ -72,7 +77,7 @@ public class DeepCloneWithStopWatchTest {
 		stopWatch.start();
 		int j = 0;
 		for (ExampleObject exampleObject : exampleObjectArray) {
-			clonedArray[j++] = CloneUtils.copyWithSerialization(exampleObject);
+			clonedArray[j++] = CloneUtils.copyWithReflection(exampleObject);
 		}
 
 		// End of clone
@@ -106,7 +111,7 @@ public class DeepCloneWithStopWatchTest {
 		stopWatch.start();
 		int j = 0;
 		for (ExampleObject exampleObject : exampleObjectArray) {
-			clonedArray[j++] = CloneUtils.copyWithReflection(exampleObject);
+			clonedArray[j++] = CloneUtils.copyWithSerialization(exampleObject);
 		}
 
 		// End of clone
@@ -119,6 +124,17 @@ public class DeepCloneWithStopWatchTest {
 		for (ExampleObject exampleObject : clonedArray) {
 			Assert.assertEquals("", exampleObjectArray[i++], exampleObject);
 		}
+
+		// Change 1 Object from original
+		ExampleObject2 objectToChange = exampleObjectArray[0].getOtherObject();
+		int newNumberForObject = (int) (Math.random() * 100);
+		Assert.assertNotEquals("Number not changed.", objectToChange.getNumber(), newNumberForObject);
+		objectToChange.setNumber(newNumberForObject);
+		exampleObjectArray[0].setExampleObject2(objectToChange);
+
+		Assert.assertNotEquals(exampleObjectArray[0].getOtherObject().getNumber(),
+				clonedArray[0].getOtherObject().getNumber());
+
 		System.out.println("=========================================");
 		System.out.println(
 				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Serialization: " + serializationTime);

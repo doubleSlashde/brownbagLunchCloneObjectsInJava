@@ -2,6 +2,8 @@ package complex;
 
 import java.io.Serializable;
 
+import primitives.ExampleObject3;
+
 public class ExampleObject implements Cloneable, Serializable {
 
 	private int number;
@@ -10,6 +12,25 @@ public class ExampleObject implements Cloneable, Serializable {
 
 	// Default Constructor
 	public ExampleObject() {
+	}
+
+	// Copy-Constructor with boolean for decide whether a deep or shallow copy
+	// is needed
+	public ExampleObject(final boolean deepCopy, ExampleObject objectToCopy) {
+		if (deepCopy == true) {
+			this.number = objectToCopy.getNumber();
+			ExampleObject2 exampleObject2 = new ExampleObject2();
+			exampleObject2.setNumber(objectToCopy.getOtherObject().getNumber());
+			this.otherObject = exampleObject2;
+
+			ExampleObject3 exampleObject3 = new ExampleObject3();
+			exampleObject3.setNumber(objectToCopy.getOtherObject().getExampleObject3().getNumber());
+
+			exampleObject2.setExampleObject3(exampleObject3);
+		} else {
+			this.number = objectToCopy.getNumber();
+			this.otherObject = objectToCopy.getOtherObject();
+		}
 	}
 
 	@Override
