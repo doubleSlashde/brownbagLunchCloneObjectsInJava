@@ -10,9 +10,10 @@ import primitives.ExampleObject3;
  * @author straeger
  *
  */
-public class ExampleObject2 implements Serializable {
+public class ExampleObject2 implements Serializable, Cloneable {
 
 	private int number;
+
 	private ExampleObject3 exampleObject3;
 
 	// Default constructor
@@ -27,6 +28,11 @@ public class ExampleObject2 implements Serializable {
 	// Parameter constructor
 	public ExampleObject2(final int number) {
 		this.number = number;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 	@Override

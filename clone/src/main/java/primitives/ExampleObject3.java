@@ -2,7 +2,7 @@ package primitives;
 
 import java.io.Serializable;
 
-public class ExampleObject3 implements Serializable {
+public class ExampleObject3 implements Serializable, Cloneable {
 
 	private int number;
 
@@ -18,6 +18,11 @@ public class ExampleObject3 implements Serializable {
 	// Parameter constructor
 	public ExampleObject3(final int number) {
 		this.number = number;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 	@Override
