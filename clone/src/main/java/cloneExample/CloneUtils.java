@@ -34,6 +34,9 @@ public class CloneUtils {
 	 *             the InstantiationException
 	 */
 	// TODO: Why do this method only copy shallow?
+	// SOLUTION: Temporary fixed by removing the generics from the
+	// copyFieldByField...-Method and replace it with specific copy for car
+	// object.
 	public static Car copyCar(Car entity) throws IllegalAccessException, InstantiationException {
 		Class<?> clazz = entity.getClass();
 		Car newEntity = entity.getClass().newInstance();
