@@ -10,6 +10,9 @@ import java.io.Serializable;
  */
 public class Manufacturer implements Serializable, Cloneable {
 
+	/**
+	 * The name of the manufacturer.
+	 */
 	private int manufacturerNumber;
 
 	// Default constructor

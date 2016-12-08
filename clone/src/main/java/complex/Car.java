@@ -6,8 +6,14 @@ import primitives.Manufacturer;
 
 public class Car implements Cloneable, Serializable {
 
+	/**
+	 * The id of the car.
+	 */
 	private int id;
 
+	/**
+	 * The engine of the car.
+	 */
 	private Engine engine;
 
 	// Default Constructor

@@ -12,8 +12,14 @@ import primitives.Manufacturer;
  */
 public class Engine implements Serializable, Cloneable {
 
+	/**
+	 * The serialNumber of the engine.
+	 */
 	private int serialNumber;
 
+	/**
+	 * The manufacturer of the engine.
+	 */
 	private Manufacturer manufacturer;
 
 	// Default constructor
