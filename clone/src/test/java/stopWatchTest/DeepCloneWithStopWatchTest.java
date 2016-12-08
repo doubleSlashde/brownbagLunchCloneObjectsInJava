@@ -156,7 +156,7 @@ public class DeepCloneWithStopWatchTest {
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
-			clonedCarArray[j++] = CloneUtils.copyCar(car);
+			clonedCarArray[j++] = CloneUtils.copyWithReflection(car);
 		}
 
 		// End of clone

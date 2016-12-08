@@ -1,5 +1,6 @@
 package cloneExample;
 
+import java.beans.PropertyDescriptor;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -7,12 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.BeanUtils;
-
-import complex.Car;
-import complex.Engine;
-import primitives.Manufacturer;
 
 /**
  * Class holding different methods for cloning objects.
@@ -21,6 +19,40 @@ import primitives.Manufacturer;
  *
  */
 public class CloneUtils {
+
+	// TODO: Make method generic. Therefore: Check all fields. If Object -> get
+	// values and set in a new entity
+	private static <T> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz) throws Exception {
+		Field[] declaredFields = clazz.getDeclaredFields();
+		for (Field field : declaredFields) {
+			field.setAccessible(true);
+			// if (field.getType().equals(Engine.class)) {
+			// Engine value = (Engine) field.get(entity);
+			// Engine newEngine = new Engine();
+			// newEngine.setSerialNumber(value.getSerialNumber());
+			// Manufacturer manufacturer = new Manufacturer();
+			// manufacturer.setManufacturerNumber(value.getManufacturer().getManufacturerNumber());
+			// newEngine.setManufacturer(manufacturer);
+			// field.set(newEntity, newEngine);
+			// continue;
+			// }
+			if (!field.getType().isPrimitive()) {
+				// TODO: Magic
+				Method getter = new PropertyDescriptor(field.getName(), clazz).getReadMethod();
+				Method setter = new PropertyDescriptor(field.getName(), clazz).getWriteMethod();
+				Object getterResult = getter.invoke(entity);
+				setter.invoke(newEntity, getterResult);
+			}
+			Object value = field.get(entity);
+			field.set(newEntity, value);
+		}
+	}
+
+	public static <T> T copyWithBeanUtils(T entity) throws Exception {
+		T newEntity;
+		newEntity = (T) BeanUtils.cloneBean(entity);
+		return newEntity;
+	}
 
 	/**
 	 * Method for Deep-Copying a Object via Reflection.
@@ -33,47 +65,19 @@ public class CloneUtils {
 	 * @throws InstantiationException
 	 *             the InstantiationException
 	 */
-	// TODO: Why do this method only copy shallow?
-	// SOLUTION: Temporary fixed by removing the generics from the
+	// TODO: method only copy shallow.
+	// TEMPORARY SOLUTION: Temporary fixed by removing the generics from the
 	// copyFieldByField...-Method and replace it with specific copy for car
 	// object.
-	public static Car copyCar(Car entity) throws IllegalAccessException, InstantiationException {
+	public static <T> T copyWithReflection(T entity) throws Exception {
 		Class<?> clazz = entity.getClass();
-		Car newEntity = entity.getClass().newInstance();
+		T newEntity = (T) entity.getClass().newInstance();
 
 		while (clazz != null) {
-			copyFieldByFieldFromCarPerReflection(entity, newEntity, clazz);
+			copyFieldByFieldWithReflection(entity, newEntity, clazz);
 			clazz = clazz.getSuperclass();
 		}
 
-		return newEntity;
-	}
-
-	// TODO: Make method generic. Therefore: Check all fields. If Object -> get
-	// values and set in a new entity
-	private static void copyFieldByFieldFromCarPerReflection(Car entity, Car newEntity, Class<?> clazz)
-			throws IllegalAccessException {
-		Field[] declaredFields = clazz.getDeclaredFields();
-		for (Field field : declaredFields) {
-			field.setAccessible(true);
-			if (field.getType().equals(Engine.class)) {
-				Engine value = (Engine) field.get(entity);
-				Engine newEngine = new Engine();
-				newEngine.setSerialNumber(value.getSerialNumber());
-				Manufacturer manufacturer = new Manufacturer();
-				manufacturer.setManufacturerNumber(value.getManufacturer().getManufacturerNumber());
-				newEngine.setManufacturer(manufacturer);
-				field.set(newEntity, newEngine);
-				continue;
-			}
-			Object value = field.get(entity);
-			field.set(newEntity, value);
-		}
-	}
-
-	public static <T> T copyWithBeanUtils(T entity) throws Exception {
-		T newEntity;
-		newEntity = (T) BeanUtils.cloneBean(entity);
 		return newEntity;
 	}
 
