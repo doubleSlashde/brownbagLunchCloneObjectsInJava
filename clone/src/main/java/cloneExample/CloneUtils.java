@@ -22,7 +22,7 @@ public class CloneUtils {
 
 	// TODO: Make method generic. Therefore: Check all fields. If Object -> get
 	// values and set in a new entity
-	private static <T> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz) throws Exception {
+	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz) throws Exception {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
 			field.setAccessible(true);
@@ -38,10 +38,16 @@ public class CloneUtils {
 			// }
 			if (!field.getType().isPrimitive()) {
 				// TODO: Magic
-				Method getter = new PropertyDescriptor(field.getName(), clazz).getReadMethod();
+				V newFieldTypeEntity = (V) field.get(entity).getClass().newInstance();
+				for (Field innerField : newFieldTypeEntity.getClass().getDeclaredFields()) {
+					V value = (V) field.get(entity);
+					Method setterInnerField = new PropertyDescriptor(innerField.getName(),
+							innerField.getDeclaringClass()).getWriteMethod();
+					// setterInnerField.invoke(newEntity, value);
+				}
 				Method setter = new PropertyDescriptor(field.getName(), clazz).getWriteMethod();
-				Object getterResult = getter.invoke(entity);
-				setter.invoke(newEntity, getterResult);
+				setter.invoke(newEntity, newFieldTypeEntity);
+				continue;
 			}
 			Object value = field.get(entity);
 			field.set(newEntity, value);
