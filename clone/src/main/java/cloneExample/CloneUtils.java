@@ -99,17 +99,27 @@ public class CloneUtils {
 	 */
 	public static <T extends Serializable> T copyWithSerialization(T objectToCopy) throws Exception {
 		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(baos);
-			out.writeObject(objectToCopy);
-			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-			ObjectInputStream in = new ObjectInputStream(bais);
-			return (T) in.readObject();
+			byte[] serializedObject =  serialize(objectToCopy);
+			return deserialize(serializedObject);
 		} catch (ClassNotFoundException e) {
 			throw new Exception(e);
 		} catch (IOException e) {
 			throw new Exception(e);
 		}
 	}
+
+  private static <T> T deserialize(final byte[] serializedObject) throws IOException, ClassNotFoundException {
+    ByteArrayInputStream bais = new ByteArrayInputStream(serializedObject);
+    ObjectInputStream in = new ObjectInputStream(bais);
+    return (T) in.readObject();
+  }
+
+  private static <T extends Serializable> byte[] serialize(T objectToCopy)
+      throws IOException {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ObjectOutputStream out = new ObjectOutputStream(baos);
+    out.writeObject(objectToCopy);
+    return baos.toByteArray();
+  }
 
 }
