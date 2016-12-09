@@ -47,12 +47,6 @@ public class CloneUtils {
 		}
 	}
 
-	public static <T> T copyWithBeanUtils(T entity) throws Exception {
-		T newEntity;
-		newEntity = (T) BeanUtils.cloneBean(entity);
-		return newEntity;
-	}
-
 	/**
 	 * Method for Deep-Copying a Object via Reflection.
 	 * 
@@ -64,11 +58,7 @@ public class CloneUtils {
 	 * @throws InstantiationException
 	 *             the InstantiationException
 	 */
-	// TODO: method only copy shallow.
-	// TEMPORARY SOLUTION: Temporary fixed by removing the generics from the
-	// copyFieldByField...-Method and replace it with specific copy for car
-	// object.
-	public static <T> T copyWithReflection(T entity) throws Exception {
+	public static <T> T deepCopyWithReflection(T entity) throws Exception {
 		Class<?> clazz = entity.getClass();
 		T newEntity = (T) entity.getClass().newInstance();
 
@@ -90,7 +80,7 @@ public class CloneUtils {
 	 * @throws Exception
 	 *             the Exception
 	 */
-	public static <T extends Serializable> T copyWithSerialization(T objectToCopy) throws Exception {
+	public static <T extends Serializable> T deepCopyWithSerialization(T objectToCopy) throws Exception {
 		try {
 			byte[] serializedObject = serialize(objectToCopy);
 			return deserialize(serializedObject);
@@ -112,6 +102,12 @@ public class CloneUtils {
 		ObjectOutputStream out = new ObjectOutputStream(baos);
 		out.writeObject(objectToCopy);
 		return baos.toByteArray();
+	}
+
+	public static <T> T shallowCopyWithBeanUtils(T entity) throws Exception {
+		T newEntity;
+		newEntity = (T) BeanUtils.cloneBean(entity);
+		return newEntity;
 	}
 
 }

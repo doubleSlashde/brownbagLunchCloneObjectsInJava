@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import primitives.Manufacturer;
 
-public class Car implements Cloneable, Serializable {
+public class Car implements Serializable {
 
 	/**
 	 * The id of the car.

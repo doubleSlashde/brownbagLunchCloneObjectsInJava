@@ -10,6 +10,7 @@ import cloneExample.CloneUtils;
 import complex.Car;
 import complex.Engine;
 import primitives.Manufacturer;
+import utils.Utils;
 
 public class DeepCloneWithStopWatchTest {
 
@@ -17,11 +18,6 @@ public class DeepCloneWithStopWatchTest {
 	 * The startMessage for the tests.
 	 */
 	private static final String STARTING_TEST_MESSAGE = "Starting test with ";
-
-	/**
-	 * The horizontal Separator for messages.
-	 */
-	private static final String SEPARATOR_HORIZONTAL = "=========================================";
 
 	/**
 	 * Length of the testArray. Number of elements to be cloned
@@ -49,22 +45,22 @@ public class DeepCloneWithStopWatchTest {
 			int pseudoRandomNumber = (int) (Math.random() * 100);
 			System.out.println("Created pseudo random number: " + pseudoRandomNumber);
 
-			// Initializing ExampleObject
+			// Initializing Car
 			Car car = new Car();
 			car.setId(pseudoRandomNumber);
 
-			// Initializing ExampleObject2
+			// Initializing Engine
 			Engine engine = new Engine();
 			engine.setSerialNumber(pseudoRandomNumber);
 
-			// Initializing ExampleObject3
+			// Initializing Manufacturer
 			Manufacturer manufacturer = new Manufacturer();
 			manufacturer.setManufacturerNumber(pseudoRandomNumber);
 
-			// Set exampleObject3 into exampleObject2
+			// Set Manufacturer in Engine
 			engine.setManufacturer(manufacturer);
 
-			// Set exampleObject2 into exampleObject
+			// Set Engine in Car
 			car.setEngine(engine);
 			System.out.println("Created element nr. " + (i + 1) + "\n" + car);
 			carArray[i] = car;
@@ -74,71 +70,6 @@ public class DeepCloneWithStopWatchTest {
 	@Before
 	public void initTimer() {
 		stopWatch = new StopWatch();
-	}
-
-	/**
-	 * Prints the given message with horizontal separator before and after the
-	 * message. <br>
-	 * <br>
-	 * <b>Result looks like:<br>
-	 * </b> ========================================= <br>
-	 * message<br>
-	 * =========================================
-	 * 
-	 * @param message
-	 *            the message
-	 */
-	private void printMessageWithHorizontalSeperator(final String message) {
-		System.out.println(SEPARATOR_HORIZONTAL);
-		System.out.println(message);
-		System.out.println(SEPARATOR_HORIZONTAL);
-	}
-
-	@Ignore("Needs to be fixed. Not creating a deep Copy")
-	@Test
-	public void test_BeanUtils() throws Exception {
-
-		// Setup
-		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
-		String beanUtilsTime;
-		printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "BeanUtils");
-		initializeExampleObjectArray(testCarArray);
-
-		// Starting cloning -> Start StopWatch
-		stopWatch.start();
-		int j = 0;
-		for (Car car : testCarArray) {
-			clonedCarArray[j++] = CloneUtils.copyWithBeanUtils(car);
-		}
-
-		// End of clone
-		stopWatch.stop();
-		beanUtilsTime = stopWatch.toString();
-		stopWatch.reset();
-
-		// Check test result
-		int i = 0;
-		for (Car exampleObject : clonedCarArray) {
-			Assert.assertEquals("Not the expected Car", testCarArray[i++], exampleObject);
-		}
-
-		// Check precondition
-		Assert.assertEquals("Precondition not met.", testCarArray[0].getEngine().getSerialNumber(),
-				clonedCarArray[0].getEngine().getSerialNumber());
-
-		// Change 1 Object from original
-		Engine engineToChange = testCarArray[0].getEngine();
-		int newNumberForObject = (int) (Math.random() * 100);
-		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
-		engineToChange.setSerialNumber(newNumberForObject);
-		testCarArray[0].setEngine(engineToChange);
-
-		// Check if the changed Object is not in the clonedArray
-		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
-				clonedCarArray[0].getEngine().getSerialNumber());
-		printMessageWithHorizontalSeperator(
-				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with BeanUtils: " + beanUtilsTime);
-		testCarArray = null;
 	}
 
 	@Ignore("Needs to be implemented.")
@@ -161,14 +92,14 @@ public class DeepCloneWithStopWatchTest {
 		// Setup: Create 1000 objects
 		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
 		String reflectionTime;
-		printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Reflection");
+		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Reflection");
 		initializeExampleObjectArray(testCarArray);
 
 		// Starting cloning -> Start StopWatch
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
-			clonedCarArray[j++] = CloneUtils.copyWithReflection(car);
+			clonedCarArray[j++] = CloneUtils.deepCopyWithReflection(car);
 		}
 
 		// End of clone
@@ -196,7 +127,7 @@ public class DeepCloneWithStopWatchTest {
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
-		printMessageWithHorizontalSeperator(
+		Utils.printMessageWithHorizontalSeperator(
 				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Reflection: " + reflectionTime);
 		testCarArray = null;
 	}
@@ -214,14 +145,14 @@ public class DeepCloneWithStopWatchTest {
 		// Setup
 		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
 		String serializationTime;
-		printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Serialization");
+		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Serialization");
 		initializeExampleObjectArray(testCarArray);
 
 		// Starting cloning -> Start StopWatch
 		stopWatch.start();
 		int j = 0;
 		for (Car exampleObject : testCarArray) {
-			clonedCarArray[j++] = CloneUtils.copyWithSerialization(exampleObject);
+			clonedCarArray[j++] = CloneUtils.deepCopyWithSerialization(exampleObject);
 		}
 
 		// End of clone -> Stop StopWatch and reset it
@@ -250,7 +181,7 @@ public class DeepCloneWithStopWatchTest {
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
 
-		printMessageWithHorizontalSeperator(
+		Utils.printMessageWithHorizontalSeperator(
 				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Serialization: " + serializationTime);
 	}
 

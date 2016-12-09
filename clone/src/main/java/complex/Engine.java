@@ -10,7 +10,7 @@ import primitives.Manufacturer;
  * @author straeger
  *
  */
-public class Engine implements Serializable, Cloneable {
+public class Engine implements Serializable {
 
 	/**
 	 * The serialNumber of the engine.

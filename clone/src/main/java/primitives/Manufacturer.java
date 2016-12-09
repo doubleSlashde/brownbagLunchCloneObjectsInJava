@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author straeger
  *
  */
-public class Manufacturer implements Serializable, Cloneable {
+public class Manufacturer implements Serializable {
 
 	/**
 	 * The name of the manufacturer.
