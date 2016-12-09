@@ -88,8 +88,9 @@ public class Engine implements Serializable {
 	@Override
 	public String toString() {
 		return "Engine [" //
-				+ "\nSerialNumber=" + serialNumber + //
-				"]";
+				+ "\nSerialNumber=" + serialNumber //
+				+ "\nManufacturer=" + manufacturer //
+				+ "]";
 	}
 
 }

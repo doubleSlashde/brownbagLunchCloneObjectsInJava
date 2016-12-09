@@ -124,7 +124,7 @@ public class ShallowCloneWithStopWatchTest {
 	 * @throws Exception
 	 *             the Exception
 	 */
-	@Ignore("Not fully implemented yet.")
+	@Ignore("Needs to be implemented.")
 	@Test
 	public void test_Cloneable() throws Exception {
 

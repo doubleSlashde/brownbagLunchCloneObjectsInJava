@@ -19,7 +19,8 @@ import org.apache.commons.beanutils.BeanUtils;
 public class CloneUtils {
 
 	/**
-	 * Method for creating a deep copy of a given Object.
+	 * Method for cloning the content of each field recursively from an given
+	 * entity into a newEntity.
 	 * 
 	 * @param entity
 	 *            the entity
