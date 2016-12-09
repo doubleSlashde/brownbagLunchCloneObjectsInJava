@@ -1,6 +1,5 @@
 package cloneExample;
 
-import java.beans.PropertyDescriptor;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -20,33 +18,16 @@ import org.apache.commons.beanutils.BeanUtils;
  */
 public class CloneUtils {
 
-	// TODO: Make method generic. Therefore: Check all fields. If Object -> get
-	// values and set in a new entity
 	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz) throws Exception {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
 			field.setAccessible(true);
-			// if (field.getType().equals(Engine.class)) {
-			// Engine value = (Engine) field.get(entity);
-			// Engine newEngine = new Engine();
-			// newEngine.setSerialNumber(value.getSerialNumber());
-			// Manufacturer manufacturer = new Manufacturer();
-			// manufacturer.setManufacturerNumber(value.getManufacturer().getManufacturerNumber());
-			// newEngine.setManufacturer(manufacturer);
-			// field.set(newEntity, newEngine);
-			// continue;
-			// }
 			if (!field.getType().isPrimitive()) {
-				// TODO: Magic
-				V newFieldTypeEntity = (V) field.get(entity).getClass().newInstance();
-				for (Field innerField : newFieldTypeEntity.getClass().getDeclaredFields()) {
-					V value = (V) field.get(entity);
-					Method setterInnerField = new PropertyDescriptor(innerField.getName(),
-							innerField.getDeclaringClass()).getWriteMethod();
-					// setterInnerField.invoke(newEntity, value);
-				}
-				Method setter = new PropertyDescriptor(field.getName(), clazz).getWriteMethod();
-				setter.invoke(newEntity, newFieldTypeEntity);
+				Class<?> innerClazz = field.getType();
+				V innerEntity = (V) field.get(entity);
+				V newInnerEntity = (V) field.getType().newInstance();
+				field.set(newEntity, newInnerEntity);
+				copyFieldByFieldWithReflection(innerEntity, newInnerEntity, innerClazz);
 				continue;
 			}
 			Object value = field.get(entity);
@@ -99,7 +80,7 @@ public class CloneUtils {
 	 */
 	public static <T extends Serializable> T copyWithSerialization(T objectToCopy) throws Exception {
 		try {
-			byte[] serializedObject =  serialize(objectToCopy);
+			byte[] serializedObject = serialize(objectToCopy);
 			return deserialize(serializedObject);
 		} catch (ClassNotFoundException e) {
 			throw new Exception(e);
@@ -108,18 +89,17 @@ public class CloneUtils {
 		}
 	}
 
-  private static <T> T deserialize(final byte[] serializedObject) throws IOException, ClassNotFoundException {
-    ByteArrayInputStream bais = new ByteArrayInputStream(serializedObject);
-    ObjectInputStream in = new ObjectInputStream(bais);
-    return (T) in.readObject();
-  }
+	private static <T> T deserialize(final byte[] serializedObject) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream bais = new ByteArrayInputStream(serializedObject);
+		ObjectInputStream in = new ObjectInputStream(bais);
+		return (T) in.readObject();
+	}
 
-  private static <T extends Serializable> byte[] serialize(T objectToCopy)
-      throws IOException {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ObjectOutputStream out = new ObjectOutputStream(baos);
-    out.writeObject(objectToCopy);
-    return baos.toByteArray();
-  }
+	private static <T extends Serializable> byte[] serialize(T objectToCopy) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(baos);
+		out.writeObject(objectToCopy);
+		return baos.toByteArray();
+	}
 
 }
