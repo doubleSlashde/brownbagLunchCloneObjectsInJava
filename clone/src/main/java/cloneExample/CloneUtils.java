@@ -28,10 +28,13 @@ public class CloneUtils {
 	 *            the newEntity
 	 * @param clazz
 	 *            the class
-	 * @throws Exception
-	 *             the Exception
+	 * @throws IllegalAccessException
+	 *             the IllegalAccessException
+	 * @throws InstantiationException
+	 *             the InstantiationException
 	 */
-	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz) throws Exception {
+	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
+			throws IllegalAccessException, InstantiationException {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
 			field.setAccessible(true);
@@ -59,7 +62,7 @@ public class CloneUtils {
 	 * @throws InstantiationException
 	 *             the InstantiationException
 	 */
-	public static <T> T deepCopyWithReflection(T entity) throws Exception {
+	public static <T> T deepCopyWithReflection(T entity) throws IllegalAccessException, InstantiationException {
 		Class<?> clazz = entity.getClass();
 		T newEntity = (T) entity.getClass().newInstance();
 
@@ -106,9 +109,7 @@ public class CloneUtils {
 	}
 
 	public static <T> T shallowCopyWithBeanUtils(T entity) throws Exception {
-		T newEntity;
-		newEntity = (T) BeanUtils.cloneBean(entity);
-		return newEntity;
+		return (T) BeanUtils.cloneBean(entity);
 	}
 
 }
