@@ -18,6 +18,18 @@ import org.apache.commons.beanutils.BeanUtils;
  */
 public class CloneUtils {
 
+	/**
+	 * Method for creating a deep copy of a given Object.
+	 * 
+	 * @param entity
+	 *            the entity
+	 * @param newEntity
+	 *            the newEntity
+	 * @param clazz
+	 *            the class
+	 * @throws Exception
+	 *             the Exception
+	 */
 	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz) throws Exception {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {

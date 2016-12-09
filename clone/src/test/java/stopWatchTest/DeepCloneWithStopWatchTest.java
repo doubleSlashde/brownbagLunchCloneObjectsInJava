@@ -76,6 +76,18 @@ public class DeepCloneWithStopWatchTest {
 		stopWatch = new StopWatch();
 	}
 
+	/**
+	 * Prints the given message with horizontal separator before and after the
+	 * message. <br>
+	 * <br>
+	 * <b>Result looks like:<br>
+	 * </b> ========================================= <br>
+	 * message<br>
+	 * =========================================
+	 * 
+	 * @param message
+	 *            the message
+	 */
 	private void printMessageWithHorizontalSeperator(final String message) {
 		System.out.println(SEPARATOR_HORIZONTAL);
 		System.out.println(message);
