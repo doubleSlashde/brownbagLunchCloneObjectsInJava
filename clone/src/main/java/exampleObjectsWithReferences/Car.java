@@ -1,8 +1,8 @@
-package complex;
+package exampleObjectsWithReferences;
 
 import java.io.Serializable;
 
-import primitives.Manufacturer;
+import exampleObjectsWithoutReferences.Manufacturer;
 
 public class Car implements Serializable {
 

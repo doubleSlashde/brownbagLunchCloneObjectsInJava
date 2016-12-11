@@ -6,11 +6,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import cloneExample.CloneUtils;
-import complex.Car;
-import complex.Engine;
-import primitives.Manufacturer;
-import utils.Utils;
+import cloneMethods.CloneMethods;
+import commonUtils.Utils;
+import exampleObjectsWithReferences.Car;
+import exampleObjectsWithReferences.Engine;
+import exampleObjectsWithoutReferences.Manufacturer;
 
 public class DeepCloneWithStopWatchTest {
 
@@ -99,7 +99,7 @@ public class DeepCloneWithStopWatchTest {
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
-			clonedCarArray[j++] = CloneUtils.deepCopyWithReflection(car);
+			clonedCarArray[j++] = CloneMethods.deepCopyWithReflection(car);
 		}
 
 		// End of clone
@@ -152,7 +152,7 @@ public class DeepCloneWithStopWatchTest {
 		stopWatch.start();
 		int j = 0;
 		for (Car exampleObject : testCarArray) {
-			clonedCarArray[j++] = CloneUtils.deepCopyWithSerialization(exampleObject);
+			clonedCarArray[j++] = CloneMethods.deepCopyWithSerialization(exampleObject);
 		}
 
 		// End of clone -> Stop StopWatch and reset it

@@ -1,4 +1,4 @@
-package cloneExample;
+package cloneMethods;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,7 +16,7 @@ import org.apache.commons.beanutils.BeanUtils;
  * @author straeger
  *
  */
-public class CloneUtils {
+public class CloneMethods {
 
 	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
 			throws IllegalAccessException, InstantiationException {

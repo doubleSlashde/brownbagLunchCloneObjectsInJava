@@ -6,11 +6,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import cloneExample.CloneUtils;
-import complex.Car;
-import complex.Engine;
-import primitives.Manufacturer;
-import utils.Utils;
+import cloneMethods.CloneMethods;
+import commonUtils.Utils;
+import exampleObjectsWithReferences.Car;
+import exampleObjectsWithReferences.Engine;
+import exampleObjectsWithoutReferences.Manufacturer;
 
 public class ShallowCloneWithStopWatchTest {
 
@@ -85,7 +85,7 @@ public class ShallowCloneWithStopWatchTest {
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
-			clonedCarArray[j++] = CloneUtils.shallowCopyWithBeanUtils(car);
+			clonedCarArray[j++] = CloneMethods.shallowCopyWithBeanUtils(car);
 		}
 
 		// End of clone
