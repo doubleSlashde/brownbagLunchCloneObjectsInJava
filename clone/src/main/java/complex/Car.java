@@ -6,37 +6,22 @@ import primitives.Manufacturer;
 
 public class Car implements Serializable {
 
-	/**
-	 * The id of the car.
-	 */
 	private int id;
-
-	/**
-	 * The engine of the car.
-	 */
 	private Engine engine;
 
-	// Default Constructor
 	public Car() {
 	}
 
-	// Copy-Constructor with boolean for decide whether a deep or shallow copy
-	// is needed
-	public Car(final boolean deepCopy, Car carToCopy) {
-		if (deepCopy == true) {
-			this.id = carToCopy.getId();
-			Engine eninge = new Engine();
-			eninge.setSerialNumber(carToCopy.getEngine().getSerialNumber());
-			this.engine = eninge;
+	public Car(Car anotherCar) {
+		this.id = anotherCar.getId();
+		Engine engine = new Engine();
+		engine.setSerialNumber(anotherCar.getEngine().getSerialNumber());
+		this.engine = engine;
 
-			Manufacturer manufacturer = new Manufacturer();
-			manufacturer.setManufacturerNumber(carToCopy.getEngine().getManufacturer().getManufacturerNumber());
+		Manufacturer manufacturer = new Manufacturer();
+		manufacturer.setManufacturerNumber(anotherCar.getEngine().getManufacturer().getManufacturerNumber());
 
-			eninge.setManufacturer(manufacturer);
-		} else {
-			this.id = carToCopy.getId();
-			this.engine = carToCopy.getEngine();
-		}
+		engine.setManufacturer(manufacturer);
 	}
 
 	@Override

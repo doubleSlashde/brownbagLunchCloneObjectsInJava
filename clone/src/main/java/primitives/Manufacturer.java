@@ -2,31 +2,18 @@ package primitives;
 
 import java.io.Serializable;
 
-/**
- * Object holding only one primitive type.
- * 
- * @author straeger
- *
- */
 public class Manufacturer implements Serializable {
-
-	/**
-	 * The name of the manufacturer.
-	 */
 	private int manufacturerNumber;
 
-	// Default constructor
 	public Manufacturer() {
 	}
 
-	// Parameter constructor
-	public Manufacturer(final int number) {
-		this.manufacturerNumber = number;
+	public Manufacturer(final int manufacturerNumber) {
+		this.manufacturerNumber = manufacturerNumber;
 	}
 
-	// Copy constructor
-	public Manufacturer(final Manufacturer primitiveObject) {
-		this.manufacturerNumber = primitiveObject.manufacturerNumber;
+	public Manufacturer(final Manufacturer anotherManufacturer) {
+		this.manufacturerNumber = anotherManufacturer.manufacturerNumber;
 	}
 
 	@Override

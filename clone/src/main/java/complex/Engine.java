@@ -4,36 +4,22 @@ import java.io.Serializable;
 
 import primitives.Manufacturer;
 
-/**
- * Object holding only primitive types.
- * 
- * @author straeger
- *
- */
 public class Engine implements Serializable {
 
-	/**
-	 * The serialNumber of the engine.
-	 */
 	private int serialNumber;
-
-	/**
-	 * The manufacturer of the engine.
-	 */
 	private Manufacturer manufacturer;
 
-	// Default constructor
 	public Engine() {
 	}
 
-	// Copy constructor
-	public Engine(final Engine engine) {
+	public Engine(Engine engine) {
 		this.serialNumber = engine.serialNumber;
+		this.manufacturer = engine.getManufacturer();
 	}
 
-	// Parameter constructor
-	public Engine(final int serialNumber) {
+	public Engine(int serialNumber, Manufacturer manufacturer) {
 		this.serialNumber = serialNumber;
+		this.manufacturer = manufacturer;
 	}
 
 	@Override

@@ -11,28 +11,13 @@ import java.lang.reflect.Field;
 import org.apache.commons.beanutils.BeanUtils;
 
 /**
- * Class holding different methods for cloning objects.
+ * Class with different methods for copy an object deep or shallow.
  * 
  * @author straeger
  *
  */
 public class CloneUtils {
 
-	/**
-	 * Method for cloning the content of each field recursively from an given
-	 * entity into a newEntity.
-	 * 
-	 * @param entity
-	 *            the entity
-	 * @param newEntity
-	 *            the newEntity
-	 * @param clazz
-	 *            the class
-	 * @throws IllegalAccessException
-	 *             the IllegalAccessException
-	 * @throws InstantiationException
-	 *             the InstantiationException
-	 */
 	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
 			throws IllegalAccessException, InstantiationException {
 		Field[] declaredFields = clazz.getDeclaredFields();
@@ -51,17 +36,6 @@ public class CloneUtils {
 		}
 	}
 
-	/**
-	 * Method for Deep-Copying a Object via Reflection.
-	 * 
-	 * @param entity
-	 *            the Entity to be cloned
-	 * @return the cloned object
-	 * @throws IllegalAccessException
-	 *             the IllegalAccessException
-	 * @throws InstantiationException
-	 *             the InstantiationException
-	 */
 	public static <T> T deepCopyWithReflection(T entity) throws IllegalAccessException, InstantiationException {
 		Class<?> clazz = entity.getClass();
 		T newEntity = (T) entity.getClass().newInstance();
@@ -74,16 +48,6 @@ public class CloneUtils {
 		return newEntity;
 	}
 
-	/**
-	 * Method for Deep-Copying a Object that implements the
-	 * Serializable-Interface via Serialization.
-	 * 
-	 * @param objectToCopy
-	 *            the objectToCopy
-	 * @return the copy of the object
-	 * @throws Exception
-	 *             the Exception
-	 */
 	public static <T extends Serializable> T deepCopyWithSerialization(T objectToCopy) throws Exception {
 		try {
 			byte[] serializedObject = serialize(objectToCopy);
