@@ -14,6 +14,12 @@
 	</properties>
 	<!-- The project dependencies -->
 	<dependencies>
+		<!-- Dozer framework -->
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.4.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
 		<dependency>
 			<groupId>commons-lang</groupId>
