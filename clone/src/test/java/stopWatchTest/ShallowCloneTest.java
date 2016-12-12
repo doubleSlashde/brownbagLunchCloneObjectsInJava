@@ -43,7 +43,7 @@ public class ShallowCloneTest {
 	private void initializeExampleObjectArray(final Car[] carArray) {
 		for (int i = 0; i < carArray.length; i++) {
 			int pseudoRandomNumber = (int) (Math.random() * 100);
-			System.out.println("Created pseudo random number: " + pseudoRandomNumber);
+			System.out.println("Pseudorandom number nr." + (i + 1) + ": " + pseudoRandomNumber);
 
 			// Initializing Car
 			Car car = new Car();
@@ -104,11 +104,13 @@ public class ShallowCloneTest {
 				clonedCarArray[0].getEngine().getSerialNumber());
 
 		// Change 1 Object from original
-		Engine engineToChange = testCarArray[0].getEngine();
-		int newNumberForObject = (int) (Math.random() * 100);
-		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
-		engineToChange.setSerialNumber(newNumberForObject);
-		testCarArray[0].setEngine(engineToChange);
+		Engine firstEngineFromCarArray = testCarArray[0].getEngine();
+		int newSerialNumber = (int) (Math.random() * 100);
+		while (newSerialNumber == firstEngineFromCarArray.getSerialNumber()) {
+			newSerialNumber = (int) (Math.random() * 100);
+		}
+		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
+		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object has affected the clonedArray
 		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),

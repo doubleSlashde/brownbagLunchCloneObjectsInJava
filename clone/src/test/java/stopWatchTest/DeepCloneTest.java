@@ -85,7 +85,6 @@ public class DeepCloneTest {
 	 * @throws Exception
 	 *             the Exception
 	 */
-	// TODO: Check why the condition after changing one object does not met.
 	@Test
 	public void test_Reflection() throws Exception {
 
@@ -117,12 +116,14 @@ public class DeepCloneTest {
 		Assert.assertEquals("Precondition not met.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
 
-		// Change 1 Object from original
-		Engine engineToChange = testCarArray[0].getEngine();
-		int newNumberForObject = (int) (Math.random() * 100);
-		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
-		engineToChange.setSerialNumber(newNumberForObject);
-		testCarArray[0].setEngine(engineToChange);
+		// Change first Object from original
+		Engine firstEngineFromCarArray = testCarArray[0].getEngine();
+		int newSerialNumber = (int) (Math.random() * 100);
+		while (newSerialNumber == firstEngineFromCarArray.getSerialNumber()) {
+			newSerialNumber = (int) (Math.random() * 100);
+		}
+		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
+		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
@@ -171,11 +172,13 @@ public class DeepCloneTest {
 				clonedCarArray[0].getEngine().getSerialNumber());
 
 		// Change 1 Object from original
-		Engine engineToChange = testCarArray[0].getEngine();
-		int newNumberForObject = (int) (Math.random() * 100);
-		Assert.assertNotEquals("Number not changed.", engineToChange.getSerialNumber(), newNumberForObject);
-		engineToChange.setSerialNumber(newNumberForObject);
-		testCarArray[0].setEngine(engineToChange);
+		Engine firstEngineFromCarArray = testCarArray[0].getEngine();
+		int newSerialNumber = (int) (Math.random() * 100);
+		while (newSerialNumber == firstEngineFromCarArray.getSerialNumber()) {
+			newSerialNumber = (int) (Math.random() * 100);
+		}
+		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
+		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
