@@ -18,7 +18,7 @@ import org.apache.commons.beanutils.BeanUtils;
  */
 public class CloneMethods {
 
-	private static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
+	protected static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
 			throws IllegalAccessException, InstantiationException {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
@@ -59,13 +59,13 @@ public class CloneMethods {
 		}
 	}
 
-	private static <T> T deserialize(final byte[] serializedObject) throws IOException, ClassNotFoundException {
+	protected static <T> T deserialize(final byte[] serializedObject) throws IOException, ClassNotFoundException {
 		ByteArrayInputStream bais = new ByteArrayInputStream(serializedObject);
 		ObjectInputStream in = new ObjectInputStream(bais);
 		return (T) in.readObject();
 	}
 
-	private static <T extends Serializable> byte[] serialize(T objectToCopy) throws IOException {
+	protected static <T extends Serializable> byte[] serialize(T objectToCopy) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(baos);
 		out.writeObject(objectToCopy);
