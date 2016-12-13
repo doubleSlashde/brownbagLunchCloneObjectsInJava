@@ -13,24 +13,10 @@ import exampleObjectsWithoutReferences.Manufacturer;
 
 public class ShallowCloneTest {
 
-	/**
-	 * The startMessage for the tests.
-	 */
 	private static final String STARTING_TEST_MESSAGE = "Starting test with ";
-
-	/**
-	 * Length of the testArray. Number of elements to be cloned
-	 */
 	private static final int TESTELEMENT_AMOUNT = 100000;
 
-	/**
-	 * The Array holding the cars for the test.
-	 */
 	private Car[] testCarArray = new Car[TESTELEMENT_AMOUNT];
-
-	/**
-	 * The StopWatch
-	 */
 	private StopWatch stopWatch;
 
 	/**

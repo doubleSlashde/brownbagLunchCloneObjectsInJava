@@ -14,25 +14,17 @@ import exampleObjectsWithoutReferences.Manufacturer;
 
 public class DeepCloneTest {
 
-	/**
-	 * The startMessage for the tests.
-	 */
 	private static final String STARTING_TEST_MESSAGE = "Starting test with ";
-
-	/**
-	 * Length of the testArray. Number of elements to be cloned
-	 */
 	private static final int TESTELEMENT_AMOUNT = 100000;
 
-	/**
-	 * The Array holding the cars for the test.
-	 */
 	private Car[] testCarArray = new Car[TESTELEMENT_AMOUNT];
-
-	/**
-	 * The StopWatch
-	 */
 	private StopWatch stopWatch;
+
+	@Before
+	public void init() {
+		stopWatch = new StopWatch();
+		initializeExampleObjectArray(testCarArray);
+	}
 
 	/**
 	 * Initializes the given array with random ExampleObjects.
@@ -65,12 +57,6 @@ public class DeepCloneTest {
 			System.out.println("Created element nr. " + (i + 1) + "\n" + car);
 			carArray[i] = car;
 		}
-	}
-
-	@Before
-	public void init() {
-		stopWatch = new StopWatch();
-		initializeExampleObjectArray(testCarArray);
 	}
 
 	@After
