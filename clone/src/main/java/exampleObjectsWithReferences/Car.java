@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import exampleObjectsWithoutReferences.Manufacturer;
 
-public class Car implements Serializable {
+public class Car implements Serializable, Cloneable {
 
 	private int id;
 	private Engine engine;
@@ -27,6 +27,10 @@ public class Car implements Serializable {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		return super.clone();
+	}
+
+	public Car cloneCar() throws CloneNotSupportedException {
+		return (Car) this.clone();
 	}
 
 	@Override

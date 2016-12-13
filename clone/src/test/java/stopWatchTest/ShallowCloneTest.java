@@ -3,7 +3,6 @@ package stopWatchTest;
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import cloneMethods.CloneMethods;
@@ -22,7 +21,7 @@ public class ShallowCloneTest {
 	/**
 	 * Length of the testArray. Number of elements to be cloned
 	 */
-	private static final int TESTELEMENT_AMOUNT = 10000;
+	private static final int TESTELEMENT_AMOUNT = 100000;
 
 	/**
 	 * The Array holding the cars for the test.
@@ -126,10 +125,51 @@ public class ShallowCloneTest {
 	 * @throws Exception
 	 *             the Exception
 	 */
-	@Ignore("Needs to be implemented.")
 	@Test
 	public void test_Cloneable() throws Exception {
+		// Setup
+		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
+		String beanUtilsTime;
+		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Cloneable");
+		initializeExampleObjectArray(testCarArray);
 
+		// Starting cloning -> Start StopWatch
+		stopWatch.start();
+		int j = 0;
+		for (Car car : testCarArray) {
+			clonedCarArray[j++] = car.cloneCar();
+		}
+
+		// End of clone
+		stopWatch.stop();
+		beanUtilsTime = stopWatch.toString();
+		stopWatch.reset();
+
+		// Check test result
+		int i = 0;
+		for (Car exampleObject : clonedCarArray) {
+			Assert.assertEquals("Not the expected Car", testCarArray[i++], exampleObject);
+		}
+
+		// Check precondition
+		Assert.assertEquals("Precondition not met.", testCarArray[0].getEngine().getSerialNumber(),
+				clonedCarArray[0].getEngine().getSerialNumber());
+
+		// Change 1 Object from original
+		Engine firstEngineFromCarArray = testCarArray[0].getEngine();
+		int newSerialNumber = (int) (Math.random() * 100);
+		while (newSerialNumber == firstEngineFromCarArray.getSerialNumber()) {
+			newSerialNumber = (int) (Math.random() * 100);
+		}
+		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
+		testCarArray[0].setEngine(firstEngineFromCarArray);
+
+		// Check if the changed Object has affected the clonedArray
+		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
+				clonedCarArray[0].getEngine().getSerialNumber());
+		Utils.printMessageWithHorizontalSeperator(
+				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Cloneable: " + beanUtilsTime);
+		testCarArray = null;
 	}
 
 }

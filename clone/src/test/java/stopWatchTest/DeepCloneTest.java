@@ -68,7 +68,7 @@ public class DeepCloneTest {
 	}
 
 	@Before
-	public void initTimer() {
+	public void init() {
 		stopWatch = new StopWatch();
 		initializeExampleObjectArray(testCarArray);
 	}
