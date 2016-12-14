@@ -33,7 +33,7 @@ public class TestUtils {
 			for (int j = 0; j < 100; j++) {
 				saList.add(new SA(pseudoRandomNumber));
 			}
-			// car.setSaList(saList);
+			car.setSaList(saList);
 
 			// Initializing Engine
 			Engine engine = new Engine();
