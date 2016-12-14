@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cloneMethods.Reflection;
+import cloneMethods.SerializationUtil;
 import cloneMethods.Serialize;
 import exampleObjects.Car;
 import exampleObjects.Engine;
@@ -121,7 +122,7 @@ public class DeepCloneTest {
 		testname = "Serialization";
 		TestUtils.printStartingTestMessage(testname);
 
-		// Starting cloning -> Start StopWatch
+		// Starting cloning
 		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
 		stopWatch.start();
 		int j = 0;
@@ -129,13 +130,38 @@ public class DeepCloneTest {
 			clonedCarArray[j++] = Serialize.deepCopyWithSerialization(exampleObject);
 		}
 
-		// End of clone -> Stop StopWatch and reset it
+		// End of clone
 		stopWatch.stop();
 		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
 
 		checkTestResult(clonedCarArray);
 
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());
+	}
+
+	@Test
+	public void test_SerializationUtils() {
+
+		// Setup: Create 1000 objects
+		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
+		testname = "Serialization Utils";
+		TestUtils.printStartingTestMessage(testname);
+
+		// Starting cloning
+		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
+		stopWatch.start();
+		int j = 0;
+		for (Car car : testCarArray) {
+			clonedCarArray[j++] = SerializationUtil.copyWithSerializationutil(car);
+		}
+		// End of clone
+		stopWatch.stop();
+		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
+
+		checkTestResult(clonedCarArray);
+		TestUtils.printStopWatchResult(testname, stopWatch.toString());
+		testCarArray = null;
+
 	}
 
 }

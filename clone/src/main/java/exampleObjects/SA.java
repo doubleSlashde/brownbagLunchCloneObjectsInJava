@@ -1,8 +1,13 @@
 package exampleObjects;
 
-public class SA {
+import java.io.Serializable;
+
+public class SA implements Serializable {
 
 	private int saId;
+
+	public SA() {
+	}
 
 	public SA(int saId) {
 		this.saId = saId;
