@@ -1,10 +1,13 @@
 package exampleObjects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Car implements Serializable, Cloneable {
 
 	private int id;
+	private List<SA> saList;
 	private Engine engine;
 
 	public Car() {
@@ -12,6 +15,9 @@ public class Car implements Serializable, Cloneable {
 
 	public Car(Car anotherCar) {
 		this.id = anotherCar.getId();
+
+		this.saList = new ArrayList<SA>(anotherCar.getSaList());
+
 		Engine engine = new Engine();
 		engine.setSerialNumber(anotherCar.getEngine().getSerialNumber());
 		this.engine = engine;
@@ -40,12 +46,17 @@ public class Car implements Serializable, Cloneable {
 		if (getClass() != obj.getClass())
 			return false;
 		Car other = (Car) obj;
-		if (id != other.id)
-			return false;
 		if (engine == null) {
 			if (other.engine != null)
 				return false;
 		} else if (!engine.equals(other.engine))
+			return false;
+		if (id != other.id)
+			return false;
+		if (saList == null) {
+			if (other.saList != null)
+				return false;
+		} else if (!saList.equals(other.saList))
 			return false;
 		return true;
 	}
@@ -58,12 +69,17 @@ public class Car implements Serializable, Cloneable {
 		return id;
 	}
 
+	public List<SA> getSaList() {
+		return saList;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result + ((engine == null) ? 0 : engine.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((saList == null) ? 0 : saList.hashCode());
 		return result;
 	}
 
@@ -75,12 +91,16 @@ public class Car implements Serializable, Cloneable {
 		this.id = id;
 	}
 
+	public void setSaList(List<SA> saList) {
+		this.saList = saList;
+	}
+
 	@Override
 	public String toString() {
 		return "Car [" //
-				+ "\nId=" + id + ", " //
-				+ "\nEngine=" + engine + //
-				"]"; //
+				+ "\nid=" + id + ", " //
+				+ "\nsaList=" + saList + ", " //
+				+ "\nengine=" + engine + "]";
 	}
 
 }

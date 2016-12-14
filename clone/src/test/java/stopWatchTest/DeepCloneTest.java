@@ -10,7 +10,6 @@ import cloneMethods.Reflection;
 import cloneMethods.Serialize;
 import exampleObjects.Car;
 import exampleObjects.Engine;
-import exampleObjects.Manufacturer;
 import utils.TestUtils;
 
 public class DeepCloneTest {
@@ -43,40 +42,7 @@ public class DeepCloneTest {
 	@Before
 	public void init() {
 		stopWatch = new StopWatch();
-		initializeExampleObjectArray(testCarArray);
-	}
-
-	/**
-	 * Initializes the given array with random ExampleObjects.
-	 * 
-	 * @param carArray
-	 *            the objectArray
-	 */
-	private void initializeExampleObjectArray(final Car[] carArray) {
-		for (int i = 0; i < carArray.length; i++) {
-			int pseudoRandomNumber = (int) (Math.random() * 100);
-			System.out.println("Created pseudo random number: " + pseudoRandomNumber);
-
-			// Initializing Car
-			Car car = new Car();
-			car.setId(pseudoRandomNumber);
-
-			// Initializing Engine
-			Engine engine = new Engine();
-			engine.setSerialNumber(pseudoRandomNumber);
-
-			// Initializing Manufacturer
-			Manufacturer manufacturer = new Manufacturer();
-			manufacturer.setManufacturerNumber(pseudoRandomNumber);
-
-			// Set Manufacturer in Engine
-			engine.setManufacturer(manufacturer);
-
-			// Set Engine in Car
-			car.setEngine(engine);
-			System.out.println("Created element nr. " + (i + 1) + "\n" + car);
-			carArray[i] = car;
-		}
+		TestUtils.initializeExampleObjectArray(testCarArray);
 	}
 
 	@After
