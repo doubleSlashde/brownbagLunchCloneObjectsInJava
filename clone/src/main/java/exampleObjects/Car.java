@@ -1,11 +1,13 @@
 package exampleObjects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Car implements Serializable, Cloneable {
 
 	private int id;
-	// private ArrayList<SA> saList;
+	private List<SA> saList;
 	private Engine engine;
 
 	public Car() {
@@ -14,7 +16,7 @@ public class Car implements Serializable, Cloneable {
 	public Car(Car anotherCar) {
 		this.id = anotherCar.getId();
 
-		// this.saList = new ArrayList<SA>(anotherCar.getSaList());
+		this.saList = new ArrayList<SA>(anotherCar.getSaList());
 
 		Engine engine = new Engine();
 		engine.setSerialNumber(anotherCar.getEngine().getSerialNumber());
@@ -51,11 +53,11 @@ public class Car implements Serializable, Cloneable {
 			return false;
 		if (id != other.id)
 			return false;
-		// if (saList == null) {
-		// if (other.saList != null)
-		// return false;
-		// } else if (!saList.equals(other.saList))
-		// return false;
+		if (saList == null) {
+			if (other.saList != null)
+				return false;
+		} else if (!saList.equals(other.saList))
+			return false;
 		return true;
 	}
 
@@ -67,9 +69,9 @@ public class Car implements Serializable, Cloneable {
 		return id;
 	}
 
-	// public List<SA> getSaList() {
-	// return saList;
-	// }
+	public List<SA> getSaList() {
+		return saList;
+	}
 
 	@Override
 	public int hashCode() {
@@ -77,7 +79,7 @@ public class Car implements Serializable, Cloneable {
 		int result = 1;
 		result = prime * result + ((engine == null) ? 0 : engine.hashCode());
 		result = prime * result + id;
-		// result = prime * result + ((saList == null) ? 0 : saList.hashCode());
+		result = prime * result + ((saList == null) ? 0 : saList.hashCode());
 		return result;
 	}
 
@@ -89,15 +91,15 @@ public class Car implements Serializable, Cloneable {
 		this.id = id;
 	}
 
-	// public void setSaList(List<SA> saList) {
-	// this.saList = new ArrayList<SA>(saList);
-	// }
+	public void setSaList(List<SA> saList) {
+		this.saList = new ArrayList<SA>(saList);
+	}
 
 	@Override
 	public String toString() {
 		return "Car [" //
 				+ "\nid=" + id + ", " //
-				// + "\nsaList=" + saList + ", " //
+				+ "\nsaList=" + saList + ", " //
 				+ "\nengine=" + engine + "]";
 	}
 
