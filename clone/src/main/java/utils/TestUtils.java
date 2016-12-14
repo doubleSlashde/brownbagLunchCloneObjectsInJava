@@ -1,12 +1,8 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import exampleObjects.Car;
 import exampleObjects.Engine;
 import exampleObjects.Manufacturer;
-import exampleObjects.SA;
 
 public class TestUtils {
 
@@ -29,11 +25,11 @@ public class TestUtils {
 			car.setId(pseudoRandomNumber);
 
 			// Initializing SaList
-			List<SA> saList = new ArrayList<SA>();
-			for (int j = 0; j < 100; j++) {
-				saList.add(new SA(pseudoRandomNumber));
-			}
-			car.setSaList(saList);
+			// List<SA> saList = new ArrayList<SA>();
+			// for (int j = 0; j < 100; j++) {
+			// saList.add(new SA(pseudoRandomNumber));
+			// }
+			// car.setSaList(saList);
 
 			// Initializing Engine
 			Engine engine = new Engine();

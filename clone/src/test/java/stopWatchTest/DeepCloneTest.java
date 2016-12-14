@@ -60,7 +60,6 @@ public class DeepCloneTest {
 		TestUtils.printStartingTestMessage(testname);
 
 		// Starting cloning -> Start StopWatch
-		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
@@ -68,7 +67,6 @@ public class DeepCloneTest {
 		}
 		// End of clone
 		stopWatch.stop();
-		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
 
 		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());
@@ -123,7 +121,6 @@ public class DeepCloneTest {
 		TestUtils.printStartingTestMessage(testname);
 
 		// Starting cloning
-		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
 		stopWatch.start();
 		int j = 0;
 		for (Car exampleObject : testCarArray) {
@@ -132,7 +129,6 @@ public class DeepCloneTest {
 
 		// End of clone
 		stopWatch.stop();
-		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
 
 		checkTestResult(clonedCarArray);
 
@@ -148,7 +144,6 @@ public class DeepCloneTest {
 		TestUtils.printStartingTestMessage(testname);
 
 		// Starting cloning
-		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
@@ -156,7 +151,6 @@ public class DeepCloneTest {
 		}
 		// End of clone
 		stopWatch.stop();
-		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
 
 		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());

@@ -68,7 +68,6 @@ public class ShallowCloneTest {
 
 		// End of clone
 		stopWatch.stop();
-		stopWatch.reset();
 
 		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());
@@ -96,7 +95,6 @@ public class ShallowCloneTest {
 
 		// End of clone
 		stopWatch.stop();
-		stopWatch.reset();
 
 		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());
