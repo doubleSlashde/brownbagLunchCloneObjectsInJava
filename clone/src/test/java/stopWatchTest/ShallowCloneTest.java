@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cloneMethods.CloneMethods;
+import cloneMethods.BeanUtil;
 import exampleObjects.Car;
 import exampleObjects.Engine;
 import exampleObjects.Manufacturer;
@@ -69,7 +69,7 @@ public class ShallowCloneTest {
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
-			clonedCarArray[j++] = CloneMethods.shallowCopyWithBeanUtils(car);
+			clonedCarArray[j++] = BeanUtil.shallowCopyWithBeanUtils(car);
 		}
 
 		// End of clone
@@ -77,27 +77,7 @@ public class ShallowCloneTest {
 		beanUtilsTime = stopWatch.toString();
 		stopWatch.reset();
 
-		// Check test result
-		int i = 0;
-		for (Car exampleObject : clonedCarArray) {
-			Assert.assertEquals("Not the expected Car", testCarArray[i++], exampleObject);
-		}
-
-		// Check precondition
-		Assert.assertEquals("Precondition not met.", testCarArray[0].getEngine().getSerialNumber(),
-				clonedCarArray[0].getEngine().getSerialNumber());
-
-		// Change 1 Object from original
-		Engine firstEngineFromCarArray = testCarArray[0].getEngine();
-		int newSerialNumber = (int) (Math.random() * 100);
-		while (newSerialNumber == firstEngineFromCarArray.getSerialNumber()) {
-			newSerialNumber = (int) (Math.random() * 100);
-		}
-		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
-
-		// Check if the changed Object has affected the clonedArray
-		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
-				clonedCarArray[0].getEngine().getSerialNumber());
+		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, beanUtilsTime);
 		testCarArray = null;
 	}
@@ -129,6 +109,12 @@ public class ShallowCloneTest {
 		cloneableTime = stopWatch.toString();
 		stopWatch.reset();
 
+		checkTestResult(clonedCarArray);
+		TestUtils.printStopWatchResult(testname, cloneableTime);
+		testCarArray = null;
+	}
+
+	private void checkTestResult(Car[] clonedCarArray) {
 		// Check test result
 		int i = 0;
 		for (Car exampleObject : clonedCarArray) {
@@ -150,8 +136,6 @@ public class ShallowCloneTest {
 		// Check if the changed Object has affected the clonedArray
 		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
-		TestUtils.printStopWatchResult(testname, cloneableTime);
-		testCarArray = null;
 	}
 
 }
