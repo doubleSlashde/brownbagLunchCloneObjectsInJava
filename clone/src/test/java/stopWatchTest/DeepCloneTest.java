@@ -55,7 +55,6 @@ public class DeepCloneTest {
 
 		// Setup: Create 1000 objects
 		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
-		String copyConstructorTime;
 		testname = "Copy-Constructor";
 		TestUtils.printStartingTestMessage(testname);
 
@@ -69,10 +68,9 @@ public class DeepCloneTest {
 		// End of clone
 		stopWatch.stop();
 		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
-		copyConstructorTime = stopWatch.toString();
 
 		checkTestResult(clonedCarArray);
-		TestUtils.printStopWatchResult(testname, copyConstructorTime);
+		TestUtils.printStopWatchResult(testname, stopWatch.toString());
 		testCarArray = null;
 
 	}
@@ -89,7 +87,6 @@ public class DeepCloneTest {
 
 		// Setup: Create 1000 objects
 		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
-		String reflectionTime;
 		testname = "Reflection";
 		TestUtils.printStartingTestMessage(testname);
 
@@ -103,10 +100,9 @@ public class DeepCloneTest {
 		// End of clone
 		stopWatch.stop();
 		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
-		reflectionTime = stopWatch.toString();
 
 		checkTestResult(clonedCarArray);
-		TestUtils.printStopWatchResult(testname, reflectionTime);
+		TestUtils.printStopWatchResult(testname, stopWatch.toString());
 		testCarArray = null;
 	}
 
@@ -122,7 +118,6 @@ public class DeepCloneTest {
 
 		// Setup
 		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
-		String serializationTime;
 		testname = "Serialization";
 		TestUtils.printStartingTestMessage(testname);
 
@@ -137,11 +132,10 @@ public class DeepCloneTest {
 		// End of clone -> Stop StopWatch and reset it
 		stopWatch.stop();
 		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
-		serializationTime = stopWatch.toString();
 
 		checkTestResult(clonedCarArray);
 
-		TestUtils.printStopWatchResult(testname, serializationTime);
+		TestUtils.printStopWatchResult(testname, stopWatch.toString());
 	}
 
 }

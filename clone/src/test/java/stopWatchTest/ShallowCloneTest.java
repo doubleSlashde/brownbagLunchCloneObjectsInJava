@@ -1,6 +1,7 @@
 package stopWatchTest;
 
 import org.apache.commons.lang.time.StopWatch;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,7 @@ import utils.TestUtils;
 public class ShallowCloneTest {
 
 	private Car[] testCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
-	private StopWatch stopWatch;
+	private StopWatch stopWatch = new StopWatch();
 	private String testname;
 
 	private void checkTestResult(Car[] clonedCarArray) {
@@ -41,9 +42,13 @@ public class ShallowCloneTest {
 	}
 
 	@Before
-	public void initTimer() {
-		stopWatch = new StopWatch();
+	public void initTestArray() {
 		TestUtils.initializeExampleObjectArray(testCarArray);
+	}
+
+	@After
+	public void resetTimer() {
+		stopWatch.reset();
 	}
 
 	@Test
@@ -51,7 +56,6 @@ public class ShallowCloneTest {
 
 		// Setup
 		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
-		String beanUtilsTime;
 		testname = "Bean Utils";
 		TestUtils.printStartingTestMessage(testname);
 
@@ -64,11 +68,10 @@ public class ShallowCloneTest {
 
 		// End of clone
 		stopWatch.stop();
-		beanUtilsTime = stopWatch.toString();
 		stopWatch.reset();
 
 		checkTestResult(clonedCarArray);
-		TestUtils.printStopWatchResult(testname, beanUtilsTime);
+		TestUtils.printStopWatchResult(testname, stopWatch.toString());
 		testCarArray = null;
 	}
 
@@ -82,7 +85,6 @@ public class ShallowCloneTest {
 	public void test_Cloneable() throws Exception {
 		// Setup
 		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
-		String cloneableTime;
 		testname = "Cloneable Interface and clone()";
 		TestUtils.printStartingTestMessage(testname);
 		// Starting cloning -> Start StopWatch
@@ -94,11 +96,10 @@ public class ShallowCloneTest {
 
 		// End of clone
 		stopWatch.stop();
-		cloneableTime = stopWatch.toString();
 		stopWatch.reset();
 
 		checkTestResult(clonedCarArray);
-		TestUtils.printStopWatchResult(testname, cloneableTime);
+		TestUtils.printStopWatchResult(testname, stopWatch.toString());
 		testCarArray = null;
 	}
 
