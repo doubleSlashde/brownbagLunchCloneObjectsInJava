@@ -100,7 +100,6 @@ public class DeepCloneTest {
 			newSerialNumber = (int) (Math.random() * 100);
 		}
 		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
-		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
@@ -155,7 +154,6 @@ public class DeepCloneTest {
 			newSerialNumber = (int) (Math.random() * 100);
 		}
 		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
-		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
@@ -210,7 +208,6 @@ public class DeepCloneTest {
 			newSerialNumber = (int) (Math.random() * 100);
 		}
 		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
-		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),

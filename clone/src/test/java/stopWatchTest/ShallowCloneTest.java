@@ -94,7 +94,6 @@ public class ShallowCloneTest {
 			newSerialNumber = (int) (Math.random() * 100);
 		}
 		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
-		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object has affected the clonedArray
 		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
@@ -147,7 +146,6 @@ public class ShallowCloneTest {
 			newSerialNumber = (int) (Math.random() * 100);
 		}
 		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
-		testCarArray[0].setEngine(firstEngineFromCarArray);
 
 		// Check if the changed Object has affected the clonedArray
 		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
