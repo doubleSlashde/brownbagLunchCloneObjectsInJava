@@ -6,18 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cloneMethods.CloneMethods;
-import commonUtils.Utils;
-import exampleObjectsWithReferences.Car;
-import exampleObjectsWithReferences.Engine;
-import exampleObjectsWithoutReferences.Manufacturer;
+import exampleObjects.Car;
+import exampleObjects.Engine;
+import exampleObjects.Manufacturer;
+import utils.TestUtils;
 
 public class ShallowCloneTest {
 
-	private static final String STARTING_TEST_MESSAGE = "Starting test with ";
-	private static final int TESTELEMENT_AMOUNT = 100000;
-
-	private Car[] testCarArray = new Car[TESTELEMENT_AMOUNT];
+	private Car[] testCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
 	private StopWatch stopWatch;
+	private String testname;
 
 	/**
 	 * Initializes the given array with random ExampleObjects.
@@ -61,9 +59,10 @@ public class ShallowCloneTest {
 	public void test_BeanUtils() throws Exception {
 
 		// Setup
-		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
+		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
 		String beanUtilsTime;
-		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "BeanUtils");
+		testname = "Bean Utils";
+		TestUtils.printStartingTestMessage(testname);
 		initializeExampleObjectArray(testCarArray);
 
 		// Starting cloning -> Start StopWatch
@@ -100,8 +99,7 @@ public class ShallowCloneTest {
 		// Check if the changed Object has affected the clonedArray
 		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
-		Utils.printMessageWithHorizontalSeperator(
-				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with BeanUtils: " + beanUtilsTime);
+		TestUtils.printStopWatchResult(testname, beanUtilsTime);
 		testCarArray = null;
 	}
 
@@ -114,9 +112,10 @@ public class ShallowCloneTest {
 	@Test
 	public void test_Cloneable() throws Exception {
 		// Setup
-		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
-		String beanUtilsTime;
-		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Cloneable");
+		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
+		String cloneableTime;
+		testname = "Cloneable Interface and clone()";
+		TestUtils.printStartingTestMessage(testname);
 		initializeExampleObjectArray(testCarArray);
 
 		// Starting cloning -> Start StopWatch
@@ -128,7 +127,7 @@ public class ShallowCloneTest {
 
 		// End of clone
 		stopWatch.stop();
-		beanUtilsTime = stopWatch.toString();
+		cloneableTime = stopWatch.toString();
 		stopWatch.reset();
 
 		// Check test result
@@ -153,8 +152,7 @@ public class ShallowCloneTest {
 		// Check if the changed Object has affected the clonedArray
 		Assert.assertEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
-		Utils.printMessageWithHorizontalSeperator(
-				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Cloneable: " + beanUtilsTime);
+		TestUtils.printStopWatchResult(testname, cloneableTime);
 		testCarArray = null;
 	}
 

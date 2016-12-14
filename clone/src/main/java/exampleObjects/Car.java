@@ -1,8 +1,6 @@
-package exampleObjectsWithReferences;
+package exampleObjects;
 
 import java.io.Serializable;
-
-import exampleObjectsWithoutReferences.Manufacturer;
 
 public class Car implements Serializable, Cloneable {
 

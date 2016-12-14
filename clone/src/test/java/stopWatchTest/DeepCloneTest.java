@@ -7,18 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cloneMethods.CloneMethods;
-import commonUtils.Utils;
-import exampleObjectsWithReferences.Car;
-import exampleObjectsWithReferences.Engine;
-import exampleObjectsWithoutReferences.Manufacturer;
+import exampleObjects.Car;
+import exampleObjects.Engine;
+import exampleObjects.Manufacturer;
+import utils.TestUtils;
 
 public class DeepCloneTest {
 
-	private static final String STARTING_TEST_MESSAGE = "Starting test with ";
-	private static final int TESTELEMENT_AMOUNT = 100000;
-
-	private Car[] testCarArray = new Car[TESTELEMENT_AMOUNT];
+	private Car[] testCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
 	private StopWatch stopWatch;
+	private String testname;
 
 	@Before
 	public void init() {
@@ -68,12 +66,13 @@ public class DeepCloneTest {
 	public void test_CopyConstructor() {
 
 		// Setup: Create 1000 objects
-		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
-		String reflectionTime;
-		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Copy Constructor");
+		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
+		String copyConstructorTime;
+		testname = "Copy-Constructor";
+		TestUtils.printStartingTestMessage(testname);
 
 		// Starting cloning -> Start StopWatch
-		Utils.printMessageWithHorizontalSeperator("Start cloning");
+		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
@@ -81,8 +80,8 @@ public class DeepCloneTest {
 		}
 		// End of clone
 		stopWatch.stop();
-		Utils.printMessageWithHorizontalSeperator("End of cloning");
-		reflectionTime = stopWatch.toString();
+		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
+		copyConstructorTime = stopWatch.toString();
 
 		// Check test result
 		int i = 0;
@@ -106,8 +105,7 @@ public class DeepCloneTest {
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
-		Utils.printMessageWithHorizontalSeperator(
-				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Copy Constructor: " + reflectionTime);
+		TestUtils.printStopWatchResult(testname, copyConstructorTime);
 		testCarArray = null;
 
 	}
@@ -123,12 +121,13 @@ public class DeepCloneTest {
 	public void test_Reflection() throws Exception {
 
 		// Setup: Create 1000 objects
-		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
+		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
 		String reflectionTime;
-		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Reflection");
+		testname = "Reflection";
+		TestUtils.printStartingTestMessage(testname);
 
 		// Starting cloning -> Start StopWatch
-		Utils.printMessageWithHorizontalSeperator("Start cloning");
+		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
 		stopWatch.start();
 		int j = 0;
 		for (Car car : testCarArray) {
@@ -136,7 +135,7 @@ public class DeepCloneTest {
 		}
 		// End of clone
 		stopWatch.stop();
-		Utils.printMessageWithHorizontalSeperator("End of cloning");
+		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
 		reflectionTime = stopWatch.toString();
 
 		// Check test result
@@ -161,8 +160,7 @@ public class DeepCloneTest {
 		// Check if the changed Object is not in the clonedArray
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
-		Utils.printMessageWithHorizontalSeperator(
-				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Reflection: " + reflectionTime);
+		TestUtils.printStopWatchResult(testname, reflectionTime);
 		testCarArray = null;
 	}
 
@@ -177,12 +175,13 @@ public class DeepCloneTest {
 	public void test_Serialization() throws Exception {
 
 		// Setup
-		Car[] clonedCarArray = new Car[TESTELEMENT_AMOUNT];
+		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
 		String serializationTime;
-		Utils.printMessageWithHorizontalSeperator(STARTING_TEST_MESSAGE + "Serialization");
+		testname = "Serialization";
+		TestUtils.printStartingTestMessage(testname);
 
 		// Starting cloning -> Start StopWatch
-		Utils.printMessageWithHorizontalSeperator("Start cloning");
+		TestUtils.printMessageWithHorizontalSeperator("Start cloning");
 		stopWatch.start();
 		int j = 0;
 		for (Car exampleObject : testCarArray) {
@@ -191,7 +190,7 @@ public class DeepCloneTest {
 
 		// End of clone -> Stop StopWatch and reset it
 		stopWatch.stop();
-		Utils.printMessageWithHorizontalSeperator("End of cloning");
+		TestUtils.printMessageWithHorizontalSeperator("End of cloning");
 		serializationTime = stopWatch.toString();
 
 		// Check test result
@@ -217,8 +216,7 @@ public class DeepCloneTest {
 		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
 				clonedCarArray[0].getEngine().getSerialNumber());
 
-		Utils.printMessageWithHorizontalSeperator(
-				"Time for copying " + TESTELEMENT_AMOUNT + " exampleObjects with Serialization: " + serializationTime);
+		TestUtils.printStopWatchResult(testname, serializationTime);
 	}
 
 }

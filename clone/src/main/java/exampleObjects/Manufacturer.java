@@ -1,4 +1,4 @@
-package exampleObjectsWithoutReferences;
+package exampleObjects;
 
 import java.io.Serializable;
 
