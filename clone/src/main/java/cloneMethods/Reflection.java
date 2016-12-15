@@ -9,10 +9,10 @@ public class Reflection {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
 			field.setAccessible(true);
-			if (!field.getType().isPrimitive()) {
+			if (!field.getType().isPrimitive() && !field.getType().isInterface()) {
 				Class<?> innerClazz = field.getType();
 				V innerEntity = (V) field.get(entity);
-				V newInnerEntity = (V) field.getType().newInstance();
+				V newInnerEntity = (V) innerClazz.newInstance();
 				field.set(newEntity, newInnerEntity);
 				copyFieldByFieldWithReflection(innerEntity, newInnerEntity, innerClazz);
 				continue;

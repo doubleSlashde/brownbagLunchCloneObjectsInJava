@@ -54,7 +54,6 @@ public class DeepCloneTest {
 	@Test
 	public void test_CopyConstructor() {
 
-		// Setup: Create 1000 objects
 		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
 		testname = "Copy-Constructor";
 		TestUtils.printStartingTestMessage(testname);
@@ -84,7 +83,6 @@ public class DeepCloneTest {
 	@Test
 	public void test_Reflection() throws Exception {
 
-		// Setup: Create 1000 objects
 		Car[] clonedCarArray = new Car[TestUtils.TESTELEMENT_AMOUNT];
 		testname = "Reflection";
 		TestUtils.printStartingTestMessage(testname);
