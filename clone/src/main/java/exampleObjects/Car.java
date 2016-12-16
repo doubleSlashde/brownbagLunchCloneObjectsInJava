@@ -16,7 +16,11 @@ public class Car implements Serializable, Cloneable {
 	public Car(Car anotherCar) {
 		this.id = anotherCar.getId();
 
-		this.saList = new ArrayList<SA>(anotherCar.getSaList());
+		List<SA> clonedSaList = new ArrayList<SA>();
+		for (SA sa : anotherCar.getSaList()) {
+			clonedSaList.add(new SA(sa.getSaId()));
+		}
+		this.saList = clonedSaList;
 
 		Engine engine = new Engine();
 		engine.setSerialNumber(anotherCar.getEngine().getSerialNumber());

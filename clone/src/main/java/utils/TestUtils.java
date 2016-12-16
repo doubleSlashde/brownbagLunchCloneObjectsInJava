@@ -11,7 +11,7 @@ import exampleObjects.SA;
 public class TestUtils {
 
 	private static final String MESSAGE_SEPARATOR = "=========================================";
-	public static final int TESTELEMENT_AMOUNT = 10000;
+	public static final int TESTELEMENT_AMOUNT = 100;
 
 	/**
 	 * Initializes the given array with random ExampleObjects.

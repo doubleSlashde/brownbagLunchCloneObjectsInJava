@@ -1,5 +1,8 @@
 package stopWatchTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,6 +14,7 @@ import cloneMethods.SerializationUtil;
 import cloneMethods.Serialize;
 import exampleObjects.Car;
 import exampleObjects.Engine;
+import exampleObjects.SA;
 import utils.TestUtils;
 
 public class DeepCloneTest {
@@ -21,23 +25,31 @@ public class DeepCloneTest {
 
 	private void checkTestResult(Car[] clonedCarArray) {
 
-		// Check clonedArray
 		int i = 0;
-		for (Car exampleObject : clonedCarArray) {
-			Assert.assertEquals("Not the expected Car", testCarArray[i++], exampleObject);
+		for (Car clonedCar : clonedCarArray) {
+			Assert.assertEquals("Car in original array and cloned array is not the same.", //
+					testCarArray[i++], //
+					clonedCar);
 		}
 
-		// Change first Object from original
-		Engine firstEngineFromCarArray = testCarArray[0].getEngine();
+		// Change engine from first original car
+		Car firstOriginalCar = testCarArray[0];
+		Car firstClonedCar = clonedCarArray[0];
+		Engine firstEngineFromCarArray = firstOriginalCar.getEngine();
 		int newSerialNumber = (int) (Math.random() * 100);
 		while (newSerialNumber == firstEngineFromCarArray.getSerialNumber()) {
 			newSerialNumber = (int) (Math.random() * 100);
 		}
 		firstEngineFromCarArray.setSerialNumber(newSerialNumber);
 
-		// Check if the changed Object is not in the clonedArray
-		Assert.assertNotEquals("SerialNumber of Engine not change.", testCarArray[0].getEngine().getSerialNumber(),
-				clonedCarArray[0].getEngine().getSerialNumber());
+		// Change SaList from first original car
+		List<SA> newSaList = new ArrayList<SA>(firstOriginalCar.getSaList());
+		newSaList.get(0).setSaId(11);
+		firstOriginalCar.setSaList(newSaList);
+
+		Assert.assertNotEquals("Not a deep copy! Unexpected Engine serialnumber",
+				firstOriginalCar.getEngine().getSerialNumber(), firstClonedCar.getEngine().getSerialNumber());
+		Assert.assertNotEquals("SaList is not a deep copy", firstOriginalCar.getSaList(), firstClonedCar.getSaList());
 	}
 
 	@Before
