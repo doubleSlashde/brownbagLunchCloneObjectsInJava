@@ -22,14 +22,6 @@ public class Reflection {
 				dest.set(i, newEntity);
 			}
 		}
-		// } else {
-		// ListIterator<? super T> di = dest.listIterator();
-		// ListIterator<? extends T> si = src.listIterator();
-		// for (int i = 0; i < srcSize; i++) {
-		// di.next();
-		// di.set(si.next());
-		// }
-		// }
 	}
 
 	protected static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
