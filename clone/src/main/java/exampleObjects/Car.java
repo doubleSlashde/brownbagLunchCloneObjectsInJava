@@ -96,7 +96,7 @@ public class Car implements Serializable, Cloneable {
 	}
 
 	public void setSaList(List<SA> saList) {
-		this.saList = new ArrayList<SA>(saList);
+		this.saList = saList;
 	}
 
 	@Override

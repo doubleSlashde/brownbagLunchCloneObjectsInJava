@@ -3,6 +3,7 @@ package stopWatchTest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.After;
 import org.junit.Assert;
@@ -44,8 +45,10 @@ public class DeepCloneTest {
 
 		// Change SaList from first original car
 		List<SA> newSaList = new ArrayList<SA>(firstOriginalCar.getSaList());
-		newSaList.get(0).setSaId(11);
-		firstOriginalCar.setSaList(newSaList);
+		if (!CollectionUtils.isEmpty(newSaList)) {
+			newSaList.get(0).setSaId(11);
+			firstOriginalCar.setSaList(newSaList);
+		}
 
 		Assert.assertNotEquals("Not a deep copy! Unexpected Engine serialnumber",
 				firstOriginalCar.getEngine().getSerialNumber(), firstClonedCar.getEngine().getSerialNumber());

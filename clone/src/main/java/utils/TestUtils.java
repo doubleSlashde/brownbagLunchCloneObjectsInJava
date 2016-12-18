@@ -11,7 +11,7 @@ import exampleObjects.SA;
 public class TestUtils {
 
 	private static final String MESSAGE_SEPARATOR = "=========================================";
-	public static final int TESTELEMENT_AMOUNT = 100;
+	public static final int TESTELEMENT_AMOUNT = 25000;
 
 	/**
 	 * Initializes the given array with random ExampleObjects.
@@ -30,10 +30,10 @@ public class TestUtils {
 
 			// Initializing SaList
 			List<SA> saList = new ArrayList<SA>();
+			car.setSaList(saList);
 			for (int j = 0; j < 100; j++) {
 				saList.add(new SA(pseudoRandomNumber));
 			}
-			car.setSaList(saList);
 
 			// Initializing Engine
 			Engine engine = new Engine();
