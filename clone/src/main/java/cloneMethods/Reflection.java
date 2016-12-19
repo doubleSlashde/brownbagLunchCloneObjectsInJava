@@ -7,7 +7,7 @@ import java.util.RandomAccess;
 
 public class Reflection {
 
-	protected static <T, V, K> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
+	protected static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
 			throws IllegalAccessException, InstantiationException {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
