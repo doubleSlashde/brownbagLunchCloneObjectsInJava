@@ -167,8 +167,6 @@ public class DeepCloneTest {
 
 		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());
-		testCarArray = null;
-
 	}
 
 }

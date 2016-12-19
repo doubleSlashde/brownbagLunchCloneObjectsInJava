@@ -86,7 +86,6 @@ public class ShallowCloneTest {
 
 		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());
-		testCarArray = null;
 	}
 
 	/**
@@ -113,7 +112,6 @@ public class ShallowCloneTest {
 
 		checkTestResult(clonedCarArray);
 		TestUtils.printStopWatchResult(testname, stopWatch.toString());
-		testCarArray = null;
 	}
 
 }

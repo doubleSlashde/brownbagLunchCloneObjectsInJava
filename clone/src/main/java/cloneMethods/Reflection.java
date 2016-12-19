@@ -7,24 +7,7 @@ import java.util.RandomAccess;
 
 public class Reflection {
 
-	private static <T> void copy(List<? super T> dest, List<? extends T> src)
-			throws IllegalAccessException, InstantiationException {
-		int srcSize = src.size();
-		if (srcSize > dest.size())
-			throw new IndexOutOfBoundsException("Source does not fit in dest");
-
-		if (src instanceof RandomAccess && dest instanceof RandomAccess) {
-			for (int i = 0; i < srcSize; i++) {
-				T innerEntity = src.get(i);
-				Class<?> innerListClazz = innerEntity.getClass();
-				T newEntity = (T) innerEntity.getClass().newInstance();
-				copyFieldByFieldWithReflection(innerEntity, newEntity, innerListClazz);
-				dest.set(i, newEntity);
-			}
-		}
-	}
-
-	protected static <T, V> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
+	protected static <T, V, K> void copyFieldByFieldWithReflection(T entity, T newEntity, Class<?> clazz)
 			throws IllegalAccessException, InstantiationException {
 		Field[] declaredFields = clazz.getDeclaredFields();
 		for (Field field : declaredFields) {
@@ -43,12 +26,27 @@ public class Reflection {
 				for (int i = 0; i < originalList.size(); i++) {
 					listCopy.add(new Object());
 				}
-				copy(listCopy, originalList);
+				copyList(listCopy, originalList);
 				field.set(newEntity, listCopy);
 				continue;
 			}
 			Object value = field.get(entity);
 			field.set(newEntity, value);
+		}
+	}
+
+	private static <T> void copyList(List<? super T> dest, List<? extends T> src)
+			throws IllegalAccessException, InstantiationException {
+		int srcSize = src.size();
+		if (srcSize > dest.size()) {
+			throw new IndexOutOfBoundsException("Source does not fit in dest");
+		}
+		if (src instanceof RandomAccess && dest instanceof RandomAccess) {
+			for (int i = 0; i < srcSize; i++) {
+				T innerEntity = src.get(i);
+				T copy = deepCopyWithReflection(innerEntity);
+				dest.set(i, copy);
+			}
 		}
 	}
 
