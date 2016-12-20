@@ -22,7 +22,7 @@ public class Reflection {
 			}
 			if (field.getType() == List.class) {
 				List originalList = (List) field.get(entity);
-				List listCopy = new ArrayList();
+				List listCopy = originalList.getClass().newInstance();
 				for (int i = 0; i < originalList.size(); i++) {
 					listCopy.add(new Object());
 				}
