@@ -9,7 +9,7 @@
 	<properties>
 		<commons-langVersion>2.2</commons-langVersion>
 		<jUnitVersion>4.12</jUnitVersion>
-		<beanUtilsVersion>1.9.3</beanUtilsVersion>
+		<beanUtilsVersion>1.9.4</beanUtilsVersion>
 	</properties>
 	<!-- The project dependencies -->
 	<dependencies>
