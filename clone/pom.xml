@@ -8,7 +8,7 @@
 	<!-- The system Properties -->
 	<properties>
 		<commons-langVersion>2.2</commons-langVersion>
-		<jUnitVersion>4.12</jUnitVersion>
+		<jUnitVersion>4.13.1</jUnitVersion>
 		<beanUtilsVersion>1.9.3</beanUtilsVersion>
 	</properties>
 	<!-- The project dependencies -->
